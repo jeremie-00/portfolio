@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model image {
+  id        String   @id @default(uuid())
+  url       String
+  alt       String
+  position  String?  @default("left")
+  sectionId String   @unique
+  section   Section? @relation("SectionToImage", fields: [sectionId], references: [id], onDelete: Cascade)
+}
+
+model Section {
+  id          String @id @default(uuid())
+  name        String
+  title       String
+  subtitle    String
+  description String
+  page        Int
+  order       Int
+  image       image? @relation("SectionToImage")
+}
