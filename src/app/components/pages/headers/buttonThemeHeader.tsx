@@ -1,4 +1,4 @@
-import { headerLinkVariants } from "@/app/utils/HeaderVariant";
+import { headerLinkVariants } from "./headerVariant";
 import { useState } from "react";
 import { IoSettings } from "react-icons/io5";
 import { useTheme, VariantType } from "./headerProvider";

@@ -11,7 +11,7 @@ export default async function Header() {
 
   if (!links.length) {
     return (
-      <header className="w-full h-full flex flex-col items-center justify-center bg-gray-500">
+      <header className="w-full h-full flex flex-col items-center justify-center bg-background">
         <ol className="w-full flex items-center justify-center">
           <li className="w-full flex items-center justify-center">
             <Link href={`/`} className="text-white text-xl text-center">

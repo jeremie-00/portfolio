@@ -1,16 +1,18 @@
 "use client";
 import { useIsMobile } from "@/app/hooks/useMobile";
-import { headerLinkVariants, headerVariants } from "@/app/utils/HeaderVariant";
 import { Prisma } from "@prisma/client";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
+import { CgMenuRight } from "react-icons/cg";
+import { FiX } from "react-icons/fi";
 import { IoChevronDownOutline } from "react-icons/io5";
 import ToggleTheme from "../../buttons/toggleTheme";
 import { HeaderButton } from "./buttonThemeHeader";
 import { useTheme } from "./headerProvider";
+import { headerLinkVariants, headerVariants } from "./headerVariant";
 
 export default function HeaderMultiPages({
   links,
@@ -56,6 +58,20 @@ export default function HeaderMultiPages({
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const renderLogo = () => {
+    return (
+      <Link href="/" className="flex items-center">
+        <Image
+          src={links[0].image?.url || "../../default.svg"}
+          alt={links[0].image?.alt || "Image par défaut"}
+          width={150}
+          height={150}
+          className="w-12 h-12"
+        />
+      </Link>
+    );
+  };
 
   const renderLinks = () => {
     return headerLinks.map((link) => {
@@ -106,59 +122,57 @@ export default function HeaderMultiPages({
 
   if (isMobile)
     return (
-      <header
-        className={headerVariants({
-          variant: "sticky",
-          size: "md",
-        })}
-      >
-        <nav
-          className={headerVariants({
-            nav: "default_nav",
-          })}
-        >
+      <header className={headerVariants({ variant: "sticky", size: "md" })}>
+        <nav className={headerVariants({ nav: "default_nav" })}>
           <div className="max-xl:w-full flex items-center max-xl:justify-between gap-8">
             {/* Logo */}
-            <Link href="/" className="flex items-center">
-              <Image
-                src={links[0].image?.url || "../../default.svg"}
-                alt={links[0].image?.alt || "Image par défaut"}
-                width={150}
-                height={150}
-                className="w-8 h-8"
-                priority
-              />
-            </Link>
+            {renderLogo()}
             {isClient && (
               <div
                 ref={menuRef}
                 className="relative w-fit flex items-center justify-end gap-8"
               >
                 {/* Icône du menu hamburger */}
-
                 <button
                   onClick={toggleMenu}
                   className="text-2xl place-self-end"
                 >
-                  {!isMenuOpen && <FiMenu className="size-[1.8rem]" />}
+                  {!isMenuOpen && <CgMenuRight className="size-[1.8rem]" />}
                 </button>
-                {isMenuOpen && (
-                  <div className="absolute w-max top-0 right-0 flex flex-col items-start justify-end gap-4 p-4 rounded-lg bg-background">
-                    <button
-                      onClick={toggleMenu}
-                      className="text-2xl place-self-end"
+                <AnimatePresence initial={false}>
+                  {isMenuOpen && (
+                    <motion.div
+                      className="fixed top-0 right-0 h-full w-[250px] bg-background shadow shadow-primary border-l-2 border-primary/40 p-4 flex flex-col items-start justify-start gap-4 rounded-l-lg z-50"
+                      initial={{ opacity: 0, x: "100%" }}
+                      animate={{
+                        opacity: 1,
+                        x: 0,
+                      }}
+                      exit={{ x: "100%" }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 12,
+                        mass: 0.4,
+                        duration: 2,
+                      }}
                     >
-                      <FiX />
-                    </button>
-                    <div className="flex flex-col items-start gap-4">
-                      {renderLinks()}
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <ToggleTheme />
-                      <HeaderButton themeVariantHeader={themeVariantHeader} />
-                    </div>
-                  </div>
-                )}
+                      <button
+                        onClick={toggleMenu}
+                        className="text-2xl self-end"
+                      >
+                        <FiX />
+                      </button>
+                      <div className="flex flex-col items-start gap-4">
+                        {renderLinks()}
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <ToggleTheme />
+                        <HeaderButton themeVariantHeader={themeVariantHeader} />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             )}
           </div>
@@ -180,15 +194,7 @@ export default function HeaderMultiPages({
       >
         <div className="flex items-center gap-8">
           {/* Logo */}
-          <Link href="/" className="flex items-center">
-            <Image
-              src={links[0].image?.url || "../../default.svg"}
-              alt={links[0].image?.alt || "Image par défaut"}
-              width={150}
-              height={150}
-              className="w-12 h-12"
-            />
-          </Link>
+          {renderLogo()}
         </div>
 
         {/* Menu de navigation */}
