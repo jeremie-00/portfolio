@@ -9,9 +9,14 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "linear-custom":
+          "linear-gradient(to bottom, var(--tw-gradient-from), var(--tw-gradient-to))",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        transition: "hsl(var(--transition-bg))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

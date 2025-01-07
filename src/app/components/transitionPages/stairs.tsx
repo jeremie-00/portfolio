@@ -33,7 +33,7 @@ export function Stairs() {
               ease: "easeInOut",
               delay: reverseIndex(index) * 0.1,
             }}
-            className="relative w-full h-full bg-white"
+            className="relative w-full h-full bg-transition"
           />
         );
       })}

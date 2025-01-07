@@ -4,7 +4,8 @@
 
 @layer base {
   :root {
-    --background: 123 11% 96%;
+    --transition-bg: 117 5% 13%;
+    --background: 117 17% 85%;
     --foreground: 123 79% 4%;
     --muted: 123 6% 87%;
     --muted-foreground: 123 0% 40%;
@@ -27,7 +28,8 @@
   }
 
   .dark {
-    --background: 123 43% 2%;
+    --transition-bg: 117 17% 85%;
+    --background: 117 5% 13%;
     --foreground: 123 21% 100%;
     --muted: 123 6% 13%;
     --muted-foreground: 123 0% 60%;
@@ -49,7 +51,6 @@
   }
 }
 
-body {
+/* body {
   color: hsl(var(--foreground));
-  background: hsl(var(--background));
-}
+} */
