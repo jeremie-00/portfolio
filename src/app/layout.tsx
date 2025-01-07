@@ -1,11 +1,12 @@
 import { ThemeProvider } from "@/app/components/buttons/themeProvider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Footer from "./components/pages/footer";
-import Header from "./components/pages/headers/header";
-import { HeaderProvider } from "./components/pages/headers/headerProvider";
-import "./globals.css";
 
+import Header from "./components/header/header";
+import Footer from "./components/pages/footer";
+import { StairTransition } from "./components/transitionPages/stairTransition";
+import { Transitions } from "./components/transitionPages/transitions";
+import "./globals.css";
 const geistSans = Geist({
   subsets: ["latin"],
 });
@@ -35,11 +36,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <HeaderProvider>
-            <Header />
-          </HeaderProvider>
-          <main className="flex min-h-svh flex-col items-center p-2 gap-20">
-            {children}
+          <Header />
+          <main className="flex min-h-svh flex-col items-center">
+            <StairTransition />
+            <Transitions>{children}</Transitions>
           </main>
           <Footer />
         </ThemeProvider>
