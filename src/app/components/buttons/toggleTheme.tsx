@@ -2,6 +2,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
+import { Button } from "./buttons";
 
 export default function ToggleTheme() {
   const { theme, setTheme, resolvedTheme } = useTheme();
@@ -24,8 +25,8 @@ export default function ToggleTheme() {
     );
   }
   return (
-    <button
-      className="border-2 border-primary/20 rounded-lg inline-flex items-center justify-center p-2 transition-colors duration-300 hover:border-primary/60 hover:bg-primary/20 hover:text-primary"
+    <Button
+      theme="icon"
       onClick={toggleTheme}
       aria-label="Basculer entre le thème clair et sombre"
     >
@@ -34,6 +35,6 @@ export default function ToggleTheme() {
       ) : (
         <IoSunnyOutline className="size-[1.5rem]" />
       )}
-    </button>
+    </Button>
   );
 }
