@@ -7,6 +7,7 @@ import Footer from "./components/pages/footer";
 import { StairTransition } from "./components/transitionPages/stairTransition";
 import { Transitions } from "./components/transitionPages/transitions";
 import "./globals.css";
+import { ParallaxProviders } from "./providers/parallaxProvider";
 const geistSans = Geist({
   subsets: ["latin"],
 });
@@ -37,9 +38,11 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="flex min-h-svh flex-col items-center">
+          <main className="flex min-h-svh flex-col items-center overflow-x-hidden">
             <StairTransition />
-            <Transitions>{children}</Transitions>
+            <Transitions>
+              <ParallaxProviders>{children}</ParallaxProviders>
+            </Transitions>
           </main>
           <Footer />
         </ThemeProvider>
