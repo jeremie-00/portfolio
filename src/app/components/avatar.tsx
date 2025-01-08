@@ -1,86 +1,126 @@
 "use client";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useParallax } from "react-scroll-parallax";
 import profilepic from "../assets/profilepic.png";
+import profilepicReverse from "../assets/profilepicReverse.png";
 import { useIsMobile } from "../hooks/useMobile";
 
 export function Avatar() {
   const isMobile = useIsMobile();
-  const sizeAvatar = isMobile ? 200 : 300;
-
+  const [sizeAvatar, setSizeAvatar] = useState(isMobile ? 200 : 300);
   const [sizeCircle, setSizeCircle] = useState(sizeAvatar + 50);
+  const [transitionImage, setTransitionImage] = useState(false);
+
+  const parallax = useParallax<HTMLDivElement>({
+    rotateY: [0, 180],
+    shouldAlwaysCompleteAnimation: true,
+    shouldDisableScalingTranslations: true,
+    rootMargin: !isMobile
+      ? { top: -450, right: 100, bottom: -450, left: 100 }
+      : { top: -300, right: 100, bottom: -300, left: 100 },
+  });
 
   useEffect(() => {
+    setSizeAvatar(isMobile ? 200 : 300);
     setSizeCircle(sizeAvatar + 50);
-  }, [sizeAvatar, isMobile]);
+  }, [sizeAvatar, isMobile, sizeCircle]);
+
+  // Changer l'image quand la rotation est supérieure à 90°
+  useEffect(() => {
+    const handleScroll = () => {
+      const element = parallax.ref.current;
+      const rotateY = element.style.transform;
+      const valueRotateY = rotateY.match(/rotateY\((-?\d+(\.\d+)?)deg\)/);
+
+      if (element && valueRotateY) {
+        if (Number(valueRotateY[1]) > 90) {
+          setTransitionImage(true);
+        } else if (Number(valueRotateY[1]) < 90) {
+          setTransitionImage(false);
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [parallax.ref]);
 
   return (
-    <div className="w-full h-full flex items-center justify-center relative">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          duration: 0.1,
-          ease: "easeInOut",
-        }}
-        className="w-full h-full flex items-center justify-center"
-      >
-        {/*Image*/}
+    <div ref={parallax.ref} className="spinner">
+      <AnimatePresence mode="wait">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          style={{
-            width: sizeAvatar,
-            height: sizeAvatar,
+          transition={{
+            duration: 0.1,
+            ease: "easeInOut",
           }}
-          className="absolute flex items-center justify-center"
+          className="w-full h-full flex items-center justify-center"
         >
-          <Image
-            className="object-cover place-self-center"
-            src={profilepic}
-            priority
-            quality={100}
-            alt="profile"
-            width={800}
-            height={800}
+          {/* Image */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
             style={{
               width: sizeAvatar,
               height: sizeAvatar,
             }}
-          />
-        </motion.div>
+            className="absolute flex items-center justify-center z-20"
+          >
+            <Image
+              className="object-cover place-self-center"
+              src={transitionImage ? profilepicReverse : profilepic}
+              priority
+              quality={100}
+              alt="Memoji de profil de l'utilisateur"
+              aria-label="Memoji de profil"
+              width={800}
+              height={800}
+              style={{
+                width: sizeAvatar,
+                height: sizeAvatar,
+              }}
+            />
+          </motion.div>
 
-        {/*Circle*/}
-        <motion.svg
-          className={`w-[${sizeCircle}px] h-[${sizeCircle}px] `}
-          //className="w-[350px] h-[350px]"
-          fill="transparent"
-          viewBox={"0 0 506 506"}
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <motion.circle
-            cx="253"
-            cy="253"
-            r="250"
-            stroke="green"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            initial={{ strokeDasharray: "34 10 0 0" }}
-            animate={{
-              strokeDasharray: ["15 120 25 25 ", "16 25 92 72", "4 250 22 22"],
-              rotate: [120, 360],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          />
-        </motion.svg>
-      </motion.div>
+          {/* Circle */}
+          <motion.svg
+            className={`bg-transparent rounded-full z-10 bg-background/10 backdrop-blur-sm shadow-lg dark:shadow-primary/20
+              ${isMobile ? "w-[250px] h-[250px]" : "w-[350px] h-[350px]"}`}
+            fill="transparent"
+            viewBox={"0 0 506 506"}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <motion.circle
+              cx="253"
+              cy="253"
+              r="250"
+              stroke="hsl(220 66% 58%)"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              initial={{ strokeDasharray: "24 10 0 0" }}
+              animate={{
+                strokeDasharray: [
+                  "15 120 25 25 ",
+                  "16 25 92 72",
+                  "4 250 22 22",
+                ],
+                rotate: [120, 360],
+              }}
+              transition={{
+                duration: 15,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            />
+          </motion.svg>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
