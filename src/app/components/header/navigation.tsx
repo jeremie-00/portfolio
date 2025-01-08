@@ -1,11 +1,12 @@
 "use client";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "../buttons/buttons";
 
 export const nav = [
   { href: "/", title: "Accueil" },
   { href: "/pages/1", title: "Mon parcours" },
-  { href: "/pages/2", title: "Mes technologies favorites" },
+  { href: "/pages/2", title: "Mes Projets" },
+  { href: "/pages/3", title: "Me contacter" },
 ];
 
 export default function Navigation() {
@@ -17,16 +18,17 @@ export default function Navigation() {
           const isActive = pathname === item.href;
           return (
             <li key={item.title} className="relative">
-              <Link
+              <Button
                 href={item.href}
-                className={`w-fit hover:text-primary after:content-[''] after:bg-primary after:transition-scale after:duration-300 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:origin-center after:scale-0  ${
+                theme="underline"
+                className={` ${
                   isActive
                     ? "after:scale-100 text-primary"
                     : "hover:after:scale-100"
                 }`}
               >
                 {item.title}
-              </Link>
+              </Button>
             </li>
           );
         })}
