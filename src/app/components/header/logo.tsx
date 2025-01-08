@@ -3,7 +3,10 @@ import Link from "next/link";
 
 export default function Logo() {
   return (
-    <Link href="/" className="flex items-center">
+    <Link
+      href="/"
+      className="flex items-center hover:scale-105 transition-scale duration-300"
+    >
       <Image
         src={"/favicon.ico" || "../../default.svg"}
         alt={"Logo" || "Image par défaut"}
