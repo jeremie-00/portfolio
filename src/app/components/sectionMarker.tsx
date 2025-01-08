@@ -13,7 +13,7 @@ export default function SectionMarker({
       style={{ transform: `rotate(${rotate}deg)` }}
     >
       <div className="w-5 h-5 rounded-full bg-primary" />
-      <div className="w-1 min-[900px]:h-80 h-48 bg-gradient-to-b from-primary" />
+      <div className="w-1 h-1/2 bg-gradient-to-b from-primary" />
     </div>
   );
 }
