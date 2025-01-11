@@ -11,6 +11,7 @@ interface ButtonProps {
   onClick?: () => void;
   ariaLabel?: string;
   isActive?: boolean;
+  disabled?: boolean;
 }
 
 export const Button = (props: ButtonProps) => {
@@ -25,10 +26,11 @@ export const Button = (props: ButtonProps) => {
     onClick,
     ariaLabel,
     isActive,
+    disabled,
   } = props;
 
-  const baseClasse =
-    "flex items-center justify-center border-2 border-border hover:border-border/40";
+  const baseClasse = "button border-2 border-border hover:border-border/40";
+
   const themeClasses =
     theme === "primary"
       ? "bg-primary hover:bg-primary/80"
@@ -39,12 +41,16 @@ export const Button = (props: ButtonProps) => {
       : theme === "icon"
       ? "p-2 hover:border-primary"
       : theme === "underline"
-      ? "lg:text-[1.25rem] text-[1rem] border-none shadow-none w-fit hover:text-primary after:content-[''] after:bg-primary after:transition-scale after:duration-300 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:origin-center after:scale-0 "
+      ? "lg:text-[1.25rem] text-[1rem] border-none shadow-none dark:shadow-none w-fit hover:text-primary after:content-[''] after:bg-primary after:transition-scale after:duration-300 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:origin-center after:scale-0 "
       : theme === "highlight"
       ? `border-none w-fit text-foreground  py-1 px-2 rounded-md ${
           isActive ? "bg-primary/20" : "hover:bg-primary/20"
         }`
       : "";
+
+  const disabledClasses = disabled
+    ? "opacity-40 cursor-not-allowed hover:border-border"
+    : "";
 
   const sizeClasses =
     size === "sm"
@@ -62,9 +68,10 @@ export const Button = (props: ButtonProps) => {
   const renderButton = () => {
     return (
       <button
-        className={`button ${baseClasse} ${themeClasses} ${sizeClasses} ${className}`}
+        className={`${baseClasse} ${themeClasses} ${sizeClasses} ${className} ${disabledClasses}`}
         onClick={onClick}
         aria-label={ariaLabel}
+        disabled={disabled}
       >
         {children}
       </button>
@@ -74,9 +81,10 @@ export const Button = (props: ButtonProps) => {
   const renderLink = () => {
     return (
       <Link
-        className={`button ${baseClasse} ${themeClasses} ${sizeClasses} ${className}`}
+        className={`${baseClasse} ${themeClasses} ${sizeClasses} ${className}`}
         href={href ? href : "#"}
         target={target}
+        onClick={onClick}
       >
         {children}
       </Link>
@@ -86,7 +94,7 @@ export const Button = (props: ButtonProps) => {
   const renderA = () => {
     return (
       <a
-        className={`button ${baseClasse} ${themeClasses} ${sizeClasses} ${className}`}
+        className={`${baseClasse} ${themeClasses} ${sizeClasses} ${className}`}
         href={href}
         download={download}
       >
