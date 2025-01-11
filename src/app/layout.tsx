@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@/app/components/buttons/themeProvider";
+import { ThemeProvider } from "@/app/providers/themeProvider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
@@ -8,6 +8,7 @@ import { StairTransition } from "./components/transitionPages/stairTransition";
 import { Transitions } from "./components/transitionPages/transitions";
 import "./globals.css";
 import { ParallaxProviders } from "./providers/parallaxProvider";
+import { ParticlesProvider } from "./providers/particlesProvider";
 const geistSans = Geist({
   subsets: ["latin"],
 });
@@ -37,14 +38,17 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className="flex min-h-svh flex-col items-center overflow-x-hidden">
-            <StairTransition />
-            <Transitions>
-              <ParallaxProviders>{children}</ParallaxProviders>
-            </Transitions>
-          </main>
-          <Footer />
+          <ParticlesProvider>
+            <Header />
+            <main className="flex min-h-svh flex-col items-center overflow-x-hidden">
+              <StairTransition />
+              <Transitions>
+                <ParallaxProviders>{children}</ParallaxProviders>
+              </Transitions>
+            </main>
+
+            <Footer />
+          </ParticlesProvider>
         </ThemeProvider>
       </body>
     </html>
