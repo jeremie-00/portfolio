@@ -6,6 +6,7 @@ import { useParallax } from "react-scroll-parallax";
 import profilepic from "../assets/profilepic.png";
 import profilepicReverse from "../assets/profilepicReverse.png";
 import { useIsMobile } from "../hooks/useMobile";
+import { Bull } from "./ChatBull";
 
 export function Avatar() {
   const isMobile = useIsMobile();
@@ -49,78 +50,83 @@ export function Avatar() {
   }, [parallax.ref]);
 
   return (
-    <div ref={parallax.ref} className="spinner">
-      <AnimatePresence mode="wait">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{
-            duration: 0.1,
-            ease: "easeInOut",
-          }}
-          className="w-full h-full flex items-center justify-center"
-        >
-          {/* Image */}
+    <div className="flex flex-col items-center justify-center gap-10 relative">
+      <div ref={parallax.ref} className="spinner">
+        <AnimatePresence mode="wait">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            style={{
-              width: sizeAvatar,
-              height: sizeAvatar,
+            transition={{
+              duration: 0.1,
+              ease: "easeInOut",
             }}
-            className="absolute flex items-center justify-center z-20"
+            className="w-full h-full flex items-center justify-center"
           >
-            <Image
-              className="object-cover place-self-center"
-              src={transitionImage ? profilepicReverse : profilepic}
-              priority
-              quality={100}
-              alt="Memoji de profil de l'utilisateur"
-              aria-label="Memoji de profil"
-              width={800}
-              height={800}
+            {/* Image */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
               style={{
                 width: sizeAvatar,
                 height: sizeAvatar,
               }}
-            />
-          </motion.div>
+              className="absolute flex items-center justify-center z-20"
+            >
+              <Image
+                className="object-cover place-self-center"
+                src={transitionImage ? profilepicReverse : profilepic}
+                priority
+                quality={100}
+                alt="Memoji de profil de l'utilisateur"
+                aria-label="Memoji de profil"
+                width={800}
+                height={800}
+                style={{
+                  width: sizeAvatar,
+                  height: sizeAvatar,
+                }}
+              />
+            </motion.div>
 
-          {/* Circle */}
-          <motion.svg
-            className={`bg-transparent rounded-full z-10 bg-background/10 backdrop-blur-sm shadow-lg dark:shadow-primary/20
+            {/* Circle */}
+            <motion.svg
+              className={`rounded-full z-10 bg-background/10 backdrop-blur-sm shadow-custom
               ${isMobile ? "w-[250px] h-[250px]" : "w-[350px] h-[350px]"}`}
-            fill="transparent"
-            viewBox={"0 0 506 506"}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <motion.circle
-              cx="253"
-              cy="253"
-              r="250"
-              stroke="hsl(220 66% 58%)"
-              strokeWidth="4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              initial={{ strokeDasharray: "24 10 0 0" }}
-              animate={{
-                strokeDasharray: [
-                  "15 120 25 25 ",
-                  "16 25 92 72",
-                  "4 250 22 22",
-                ],
-                rotate: [120, 360],
-              }}
-              transition={{
-                duration: 15,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            />
-          </motion.svg>
-        </motion.div>
-      </AnimatePresence>
+              fill="transparent"
+              viewBox={"0 0 506 506"}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <motion.circle
+                cx="253"
+                cy="253"
+                r="250"
+                stroke="hsl(220 66% 58%)"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                initial={{ strokeDasharray: "24 10 0 0" }}
+                animate={{
+                  strokeDasharray: [
+                    "15 120 25 25 ",
+                    "16 25 92 72",
+                    "4 250 22 22",
+                  ],
+                  rotate: [120, 360],
+                }}
+                transition={{
+                  duration: 15,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              />
+            </motion.svg>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      {transitionImage && (
+        <Bull text="Bienvenue ! 😎" arrowPosition="topRight" />
+      )}
     </div>
   );
 }
