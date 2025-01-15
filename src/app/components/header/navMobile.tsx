@@ -1,4 +1,5 @@
 "use client";
+import { getNavLinks, NavLinksProps } from "@/app/services/navigation.actions";
 import { AnimatePresence, motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -6,10 +7,19 @@ import { CgMenu } from "react-icons/cg";
 import { FiX } from "react-icons/fi";
 import { Button } from "../buttons/buttons";
 import ToggleTheme from "../buttons/toggleTheme";
-import { nav } from "./navigation";
 
 export default function NavMobile() {
   const pathname = usePathname();
+  const [navLinks, setNavLinks] = useState<NavLinksProps[]>([]);
+
+  useEffect(() => {
+    const fetchNavLinks = async () => {
+      const data = await getNavLinks();
+      setNavLinks(data);
+    };
+    fetchNavLinks();
+  }, []);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -54,7 +64,7 @@ export default function NavMobile() {
         {!isMenuOpen && (
           <button
             onClick={toggleMenu}
-            className="text-2xl place-self-end border-2 border-border rounded-md rounded-tr-2xl p-2"
+            className="text-2xl place-self-end border border-border rounded-md rounded-tr-2xl p-2"
           >
             <CgMenu className="size-[1.8rem]" />
           </button>
@@ -72,14 +82,12 @@ export default function NavMobile() {
             }}
             exit={{ x: "100%" }}
             transition={{
-              type: "spring",
-              stiffness: 100,
-              damping: 12,
-              mass: 0.4,
-              duration: 2,
+              type: "tween",
+              duration: 0.4,
+              ease: "easeOut",
             }}
           >
-            <div className="bg-background/90 border-2 border-border/20 border-r-0 rounded-l-lg p-4 flex flex-col items-start justify-start gap-16 h-screen backdrop-blur-sm">
+            <div className="bg-background border border-border/20 border-r-0 rounded-l-lg p-4 flex flex-col items-start justify-start gap-16 h-screen">
               <div className="w-full flex items-center justify-between">
                 <ToggleTheme />
                 <Button onClick={toggleMenu} theme="icon">
@@ -88,17 +96,17 @@ export default function NavMobile() {
               </div>
               <nav>
                 <ul className="flex flex-col items-start gap-4">
-                  {nav.map((item) => {
-                    const isActive = pathname === item.href;
+                  {navLinks.map((link) => {
+                    const isActive = pathname === link.href;
                     return (
-                      <li key={item.title}>
+                      <li key={link.title}>
                         <Button
                           onClick={toggleMenu}
-                          href={item.href}
+                          href={link.href}
                           isActive={isActive}
                           theme="highlight"
                         >
-                          {item.title}
+                          {link.title}
                         </Button>
                       </li>
                     );

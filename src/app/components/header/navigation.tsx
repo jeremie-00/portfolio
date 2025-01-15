@@ -1,25 +1,30 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { Button } from "../buttons/buttons";
-
-export const nav = [
-  { href: "/", title: "Accueil" },
-  { href: "/pages/1", title: "Mon parcours" },
-  { href: "/pages/2", title: "Mes Projets" },
-  { href: "/pages/3", title: "Me contacter" },
-];
+import { NavLinksProps, getNavLinks } from "@/app/services/navigation.actions";
+import { useState, useEffect } from "react";
 
 export default function Navigation() {
   const pathname = usePathname();
+  const [navLinks, setNavLinks] = useState<NavLinksProps[]>([]);
+
+  useEffect(() => {
+    const fetchNavLinks = async () => {
+      const data = await getNavLinks();
+      setNavLinks(data);
+    };
+    fetchNavLinks();
+  }, []);
+
   return (
     <nav>
       <ul className="flex items-center gap-8">
-        {nav.map((item) => {
-          const isActive = pathname === item.href;
+        {navLinks.map((link) => {
+          const isActive = pathname === link.href;
           return (
-            <li key={item.title} className="relative">
+            <li key={link.title} className="relative">
               <Button
-                href={item.href}
+                href={link.href}
                 theme="underline"
                 className={` ${
                   isActive
@@ -27,7 +32,7 @@ export default function Navigation() {
                     : "hover:after:scale-100"
                 }`}
               >
-                {item.title}
+                {link.title}
               </Button>
             </li>
           );

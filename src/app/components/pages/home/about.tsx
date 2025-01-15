@@ -1,15 +1,18 @@
 import { Container, Content } from "../../containers";
 
 import { ChatBull } from "../../ChatBull";
-
-const texts = [
-  `Ancien électrotechnicien reconverti en développeur web.`,
-  `Je suis passionné par la création d'interfaces modernes et performantes.`,
-  `Rigoureux, organisé et toujours enquête d'apprentissage.`,
-  `Je mets à profit mes compétences techniques pour répondre aux besoins des utilisateurs.`,
-];
+import { getAbout } from "@/app/services/about.actions";
+import { useState, useEffect } from "react";
 
 export default function About() {
+  const [texts, setTexts] = useState<string[]>([]);
+  useEffect(() => {
+    const fetchTexts = async () => {
+      const about = await getAbout();
+      setTexts(about.texts);
+    };
+    fetchTexts();
+  }, []);
   return (
     <section className="section flex-col justify-center items-center">
       <Container>

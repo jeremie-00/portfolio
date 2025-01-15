@@ -1,26 +1,18 @@
 "use client";
 import { useIsMobile } from "@/app/hooks/useMobile";
+
 import { useParams, usePathname } from "next/navigation";
 import { IoLogoGithub, IoMailOutline } from "react-icons/io5";
 import { RxDownload } from "react-icons/rx";
 import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
+
+import { AvatarProps, getAvatarById } from "@/app/services/avatar.actions";
+import { getTextsHeroById } from "@/app/services/textHero.actions";
+import { useEffect, useState } from "react";
 import { Avatar } from "../avatar";
 import { Button } from "../buttons/buttons";
 import { Container, Content } from "../containers";
 import SectionMarker from "../sectionMarker";
-
-const titlePages: Record<string, string> = {
-  "0": "Développeur Web",
-  "1": "Découvrez mes réalisations",
-  "2": "Mon parcours",
-  "3": "Me contacter",
-};
-
-const textPages: Record<string, string> = {
-  "1": "Explorez mes projets et plongez dans mes créations uniques.",
-  "2": "Voici mon parcours professionnel",
-  "3": "Contactez-moi",
-};
 
 const HighlightedText = () => {
   const isMobile = useIsMobile();
@@ -82,7 +74,7 @@ const buttonData = [
     theme: "outline",
   },
   {
-    href: "/pages/contact",
+    href: "/pages/2",
     text: "Contactez-moi",
     icon: <IoMailOutline />,
     theme: "hover",
@@ -98,6 +90,7 @@ const buttonData = [
 
 const Buttons = () => {
   const isMobile = useIsMobile();
+
   return (
     <div className="gap-8 flex items-center justify-center max-lg:flex-col max-md:items-center">
       {buttonData.map(
@@ -124,30 +117,49 @@ export function Hero() {
   const isHomePage = usePathname() === "/";
   let paramsId = Array.isArray(params?.id) ? params.id[0] : params.id;
   paramsId = paramsId === undefined ? "0" : paramsId;
-  const pageTitle = titlePages[paramsId] ?? "Page introuvable";
-  const pageText = textPages[paramsId] ?? "La page demandée n'existe pas.";
+
+  const [avatar, setAvatar] = useState<AvatarProps>();
+  const [titleHero, setTitleHero] = useState<string>();
+  const [textHero, setTextHero] = useState<string>();
+
+  useEffect(() => {
+    const fetchDatas = async () => {
+      const avatar = await getAvatarById(paramsId);
+      setAvatar(avatar);
+
+      const textsHero = await getTextsHeroById(paramsId);
+      setTitleHero(textsHero.title);
+      setTextHero(textsHero.text);
+    };
+    fetchDatas();
+  }, [paramsId]);
 
   return (
     <section className="section justify-center">
       <SectionMarker rotate={0} />
       <Container>
-        <Content className="order-2 md:order-none">
-          <h1 className="h1">{pageTitle}</h1>
+        <Content className="">
+          <h1 className="h1">{titleHero}</h1>
           {isHomePage ? (
             <>
               <HighlightedText />
               <Buttons />
             </>
           ) : (
-            <p className="p"> {pageText} </p>
+            <p className="p"> {textHero} </p>
           )}
         </Content>
 
-        {isHomePage ? (
-          <Content className="order-1 md:order-none">
-            <Avatar />
-          </Content>
-        ) : null}
+        <Content className="">
+          {avatar && (
+            <Avatar
+              imgRecto={avatar.recto}
+              imgVerso={avatar.verso}
+              textBull={avatar.text}
+              arrowBullPosition={avatar.arrowBullPosition}
+            />
+          )}
+        </Content>
       </Container>
       <SectionMarker rotate={180} />
     </section>
