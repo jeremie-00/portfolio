@@ -11,6 +11,7 @@ interface ButtonProps {
   onClick?: () => void;
   ariaLabel?: string;
   isActive?: boolean;
+  type?: "submit" | "reset" | "button" | undefined;
   disabled?: boolean;
 }
 
@@ -26,10 +27,11 @@ export const Button = (props: ButtonProps) => {
     onClick,
     ariaLabel,
     isActive,
-    disabled,
+    type = "button",
+    disabled = false,
   } = props;
 
-  const baseClasse = "button border-2 border-border hover:border-border/40";
+  const baseClasse = "button border border-border hover:border-border/40";
 
   const themeClasses =
     theme === "primary"
@@ -71,6 +73,7 @@ export const Button = (props: ButtonProps) => {
         className={`${baseClasse} ${themeClasses} ${sizeClasses} ${className} ${disabledClasses}`}
         onClick={onClick}
         aria-label={ariaLabel}
+        type={type}
         disabled={disabled}
       >
         {children}
