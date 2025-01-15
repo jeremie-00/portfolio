@@ -5,8 +5,8 @@ export interface NavLinksProps {
 
 const nav: NavLinksProps[] = [
   { href: "/", title: "Accueil" },
-  { href: "/pages/1", title: "Mes Projets" },
-  { href: "/pages/2", title: "Me contacter" },
+  { href: "/pages/projet", title: "Mes Projets" },
+  { href: "/pages/contact", title: "Me contacter" },
 ];
 
 // Fonction pour récupérer tous les projets
