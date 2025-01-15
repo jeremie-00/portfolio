@@ -1,3 +1,8 @@
+type Media = {
+  url: string;
+  alt: string;
+};
+
 export interface ProjetProps {
   id: string;
   title: string;
@@ -11,14 +16,8 @@ export interface ProjetProps {
     target?: string;
   }[];
   image?: {
-    cover?: {
-      url: string;
-      alt: string;
-    };
-    medias?: {
-      url: string;
-      alt: string;
-    }[];
+    cover?: Media;
+    medias?: Media[];
   };
 }
 
@@ -104,6 +103,59 @@ const projets: ProjetProps[] = [
         alt: "Image de couverture du projet",
       },
       medias: [
+        {
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1731767675720-2700-Mow2I35DmRKyzXfExqmuLTj9sjavEs.png",
+          alt: "Image de couverture du projet",
+        },
+        {
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1734584649309-8569-KgYhT73MGvLz0zDJaYIJUfTCaPyBJj.webp",
+          alt: "Image de couverture du projet",
+        },
+      ],
+    },
+  },
+  {
+    id: "3",
+    title: "Projet 3",
+    shortDesc: "Description courte",
+    longDesc: "Description longue",
+    skills: ["React", "Next.js", "Tailwind"],
+    links: [
+      {
+        id: "1",
+        title: "Site web",
+        url: "https://jeremie-00.vercel.app/",
+        target: "_blank",
+      },
+      {
+        id: "2",
+        title: "GitHub",
+        url: "https://github.com/jeremie-00",
+        target: "_blank",
+      },
+    ],
+    image: {
+      cover: {
+        url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/cover/1734620324339-3288-Bmotfp5waOrVlFpdQc1lP7UwaScPhq.png",
+        alt: "Image de couverture du projet",
+      },
+      medias: [
+        {
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1731767675720-2700-Mow2I35DmRKyzXfExqmuLTj9sjavEs.png",
+          alt: "Image de couverture du projet",
+        },
+        {
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1734584649309-8569-KgYhT73MGvLz0zDJaYIJUfTCaPyBJj.webp",
+          alt: "Image de couverture du projet",
+        },
+        {
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1735207800676-7480-M09gjljZfQ8s1g3xxFznwDevx1lNqn.webp",
+          alt: "Image de couverture du projet",
+        },
+        {
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1734584649309-8569-KgYhT73MGvLz0zDJaYIJUfTCaPyBJj.webp",
+          alt: "Image de couverture du projet",
+        },
         {
           url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1731767675720-2700-Mow2I35DmRKyzXfExqmuLTj9sjavEs.png",
           alt: "Image de couverture du projet",
