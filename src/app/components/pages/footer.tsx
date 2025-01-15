@@ -1,10 +1,12 @@
 "use client";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { IoArrowUp } from "react-icons/io5";
 import { Button } from "../buttons/buttons";
 import SpeedParticles from "../buttons/speedParticles";
 
 export default function Footer() {
+  const path = usePathname();
   return (
     <footer className="relative w-full h-full flex flex-col items-center justify-center p-8 z-50 bg-background border-t border-primary  mt-24">
       <div className="w-full flex flex-1 items-center justify-center gap-8">
@@ -45,7 +47,7 @@ export default function Footer() {
           </li> */}
         </ul>
         <Button
-          href="/pages/legal"
+          href={`${path}`}
           theme="icon"
           className="absolute bottom-[50%] right-10 m-auto scroll-to-top"
         >
