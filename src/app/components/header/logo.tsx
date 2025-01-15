@@ -8,8 +8,8 @@ export default function Logo() {
       className="flex items-center hover:scale-105 transition-scale duration-300"
     >
       <Image
-        src={"/favicon.ico" || "../../default.svg"}
-        alt={"Logo" || "Image par défaut"}
+        src={"/favicon.ico"}
+        alt={"Logo H"}
         width={150}
         height={150}
         className="w-12 h-12"

@@ -8,7 +8,7 @@ import { useParams } from "next/navigation";
 
 export default function Page() {
   const params = useParams();
-  let paramsId = Array.isArray(params?.id) ? params.id[0] : params.id;
+  let paramsId = Array.isArray(params?.id) ? params.id[0] : params?.id;
   paramsId = paramsId === undefined ? "accueil" : paramsId;
 
   return (

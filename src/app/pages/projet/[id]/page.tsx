@@ -15,7 +15,7 @@ export default function Page() {
   const isMobile = useIsMobile();
   const [projet, setProjet] = useState<ProjetProps | null>(null);
   const params = useParams();
-  const paramsId = Array.isArray(params?.id) ? params.id[0] : params.id;
+  const paramsId = Array.isArray(params?.id) ? params.id[0] : params?.id;
 
   useEffect(() => {
     const fetchProjet = async () => {

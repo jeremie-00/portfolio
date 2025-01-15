@@ -14,7 +14,7 @@ import { Button } from "../buttons/buttons";
 import { Container, Content } from "../containers";
 import SectionMarker from "../sectionMarker";
 
-const HighlightedText = () => {
+const UnderlineText = () => {
   const isMobile = useIsMobile();
   return (
     <RoughNotationGroup show={true}>
@@ -115,8 +115,8 @@ const Buttons = () => {
 export function Hero() {
   const params = useParams();
   const isHomePage = usePathname() === "/";
-  let paramsId = Array.isArray(params?.id) ? params.id[0] : params.id;
-  paramsId = paramsId === undefined ? "0" : paramsId;
+  let paramsId = Array.isArray(params?.id) ? params.id[0] : params?.id;
+  paramsId = paramsId === undefined ? "acceuil" : paramsId;
 
   const [avatar, setAvatar] = useState<AvatarProps>();
   const [titleHero, setTitleHero] = useState<string>();
@@ -142,7 +142,7 @@ export function Hero() {
           <h1 className="h1">{titleHero}</h1>
           {isHomePage ? (
             <>
-              <HighlightedText />
+              <UnderlineText />
               <Buttons />
             </>
           ) : (
