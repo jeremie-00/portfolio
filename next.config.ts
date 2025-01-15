@@ -1,6 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: "/sitemap.xml",
+        destination: "/api/sitemap.xml",
+      },
+    ];
+  },
   experimental: {
     serverActions: {
       bodySizeLimit: "5mb", // ou une autre taille qui convient, comme "2mb" ou "5mb"
