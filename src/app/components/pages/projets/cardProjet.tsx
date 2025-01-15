@@ -1,0 +1,54 @@
+"use client";
+
+import { ProjetProps } from "@/app/services/projets.actions";
+import { useInView } from "motion/react";
+import Image from "next/image";
+import { useRef } from "react";
+import imageDefault from "../../../../../public/default.svg";
+import Badge from "../../badge";
+import { Button } from "../../buttons/buttons";
+import { Card } from "../../cards/cards";
+
+export function CardProjet({ projet }: { projet: ProjetProps }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const { id, title, shortDesc, skills, image } = projet;
+  return (
+    <div ref={ref} className="relative">
+      <div
+        className="flex opacity-0 transition-all duration-500 ease-in-out"
+        style={{
+          opacity: isInView ? 1 : 0,
+          transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.4s",
+        }}
+      >
+        <Card theme="secondary">
+          <div className="absolute flex flex-col top-0 left-0 w-full h-full items-center justify-center rounded-xl p-4 bg-popover/40 opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300">
+            <Button href={`/pages/projet/${id}`} theme="primary" size="sm">
+              Voir le projet
+            </Button>
+          </div>
+          <Image
+            src={image ? image.cover?.url : imageDefault}
+            alt={image?.cover ? image.cover?.alt : "Image par défaut"}
+            width={400}
+            height={400}
+            className="aspect-imgCardProjet object-contain rounded-lg bg-section shadow-lg border border-border"
+          />
+
+          <div className="w-full h-full flex flex-1 flex-col items-start justify-start gap-2">
+            <h3 className="text-2xl font-bold">{title}</h3>
+            <hr className="w-20 border-primary border-[1.5px]"></hr>
+            <p>{shortDesc}</p>
+          </div>
+
+          <div className="w-full flex flex-wrap items-start justify-start gap-2">
+            {skills?.map((skill, i) => (
+              <Badge key={i} text={skill} />
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
