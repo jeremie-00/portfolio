@@ -67,6 +67,9 @@ export default {
         ".h2": {
           "@apply w-full gradiant-title text-center size-title": {},
         },
+        ".h2-legal": {
+          "@apply text-xl text-primary font-semibold mb-2": {},
+        },
         ".p": {
           "@apply md:px-10 px-0 leading-loose text-center font-medium lg:text-[2rem] md:text-[1.75rem] sm:text-[1.5rem] text-[1.25rem]":
             {},
