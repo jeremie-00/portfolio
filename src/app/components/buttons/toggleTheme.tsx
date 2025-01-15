@@ -19,8 +19,8 @@ export default function ToggleTheme() {
   if (!mounted) {
     return (
       <div
-        className="h-12 w-12 rounded-lg border-2 border-primary/20"
-        aria-label="Bouton de thème"
+        className="h-12 w-12 rounded-lg border border-primary/20"
+        aria-label="Basculer entre le thème clair et sombre"
       />
     );
   }

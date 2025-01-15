@@ -29,7 +29,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full flex items-center justify-between px-8 py-4 bg-background/60 backdrop-blur-sm shadow-md dark:shadow-primary/20 transition-transform duration-300 ${
+      className={`sticky top-0 z-50 w-full flex items-center justify-between px-8 py-4 bg-background/60 backdrop-blur-sm shadow-custom transition-transform duration-300 ${
         isVisible ? "translate-y-0" : "-translate-y-full"
       }`}
     >
