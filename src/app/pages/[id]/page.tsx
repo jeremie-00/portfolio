@@ -1,19 +1,22 @@
-import Section from "@/app/components/pages/section";
-import { getSectionsByPage } from "@/app/services/section.action";
+"use client";
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const paramsId = (await params).id;
-  const allSections = await getSectionsByPage(paramsId);
-  console.log(allSections.length, paramsId);
+import { ContactForm } from "@/app/components/pages/contact/contactForm";
+import { Hero } from "@/app/components/pages/hero";
+import { SectionProjetsCards } from "@/app/components/pages/projets/sectionProjetsCards";
+import { ParticlesBackground } from "@/app/components/particles";
+import { useParams } from "next/navigation";
+
+export default function Page() {
+  const params = useParams();
+  let paramsId = Array.isArray(params?.id) ? params.id[0] : params.id;
+  paramsId = paramsId === undefined ? "0" : paramsId;
+
   return (
     <>
-      {allSections.map((section) => (
-        <Section key={section.id} section={section} />
-      ))}
+      <ParticlesBackground />
+      <Hero />
+      {paramsId === "1" && <SectionProjetsCards />}
+      {paramsId === "2" && <ContactForm />}
     </>
   );
 }
