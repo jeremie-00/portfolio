@@ -12,19 +12,19 @@ export interface AvatarProps {
 }
 
 const dataAvatar: Record<string, AvatarProps> = {
-  "0": {
+  acceuil: {
     recto: profilepicPc,
     verso: profilepicHandUp,
     text: "Bienvenue ! 😎",
     arrowBullPosition: "topLeft",
   },
-  "1": {
+  projet: {
     recto: profilepicPc,
     verso: profilepicThumbUp,
     text: "Bonne exploration ! 🚀",
     arrowBullPosition: "topRight",
   },
-  "2": {
+  contact: {
     recto: profilepicPc,
     verso: profilepicPhone,
     text: "A bientôt ! 🙂",

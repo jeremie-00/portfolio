@@ -1,12 +1,13 @@
 const titlePages: Record<string, string> = {
-  "0": "Développeur Web",
-  "1": "Découvrez mes réalisations",
-  "2": "Contactez-moi",
+  acceuil: "Développeur Web",
+  projet: "Découvrez mes réalisations",
+  contact: "Contactez-moi",
 };
 
 const textPages: Record<string, string> = {
-  "1": "Explorez mes projets et plongez dans mes créations uniques.",
-  "2": "Les informations que vous soumettez via ce formulaire sont uniquement utilisées pour vous répondre. Elles ne sont pas enregistrées dans une base de données et ne seront pas transmises à des tiers.",
+  projet: "Explorez mes projets et plongez dans mes créations uniques.",
+  contact:
+    "Les informations que vous soumettez via ce formulaire sont uniquement utilisées pour vous répondre. Elles ne sont pas enregistrées dans une base de données et ne seront pas transmises à des tiers.",
 };
 
 export const getTextsHeroById = async (
