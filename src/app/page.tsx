@@ -1,5 +1,7 @@
 "use client";
-import { Hero } from "./components/pages/home/hero";
+
+import { Hero } from "./components/pages/hero";
+import About from "./components/pages/home/about";
 import Skills from "./components/pages/home/skills";
 import { ParticlesBackground } from "./components/particles";
 
@@ -9,7 +11,7 @@ export default function Home() {
       <ParticlesBackground />
       <Hero />
       <Skills />
-      <section className="relative mt-20"></section>
+      <About />
     </>
   );
 }
