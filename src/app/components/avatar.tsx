@@ -1,14 +1,25 @@
 "use client";
 import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useEffect, useState } from "react";
 import { useParallax } from "react-scroll-parallax";
-import profilepic from "../assets/profilepic.png";
-import profilepicReverse from "../assets/profilepicReverse.png";
+
 import { useIsMobile } from "../hooks/useMobile";
 import { Bull } from "./ChatBull";
 
-export function Avatar() {
+interface AvatarProps {
+  imgRecto: StaticImageData;
+  imgVerso: StaticImageData;
+  textBull?: string;
+  arrowBullPosition?: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+}
+
+export function Avatar({
+  imgRecto,
+  imgVerso,
+  textBull,
+  arrowBullPosition,
+}: AvatarProps) {
   const isMobile = useIsMobile();
   const [sizeAvatar, setSizeAvatar] = useState(isMobile ? 200 : 300);
   const [sizeCircle, setSizeCircle] = useState(sizeAvatar + 50);
@@ -75,7 +86,7 @@ export function Avatar() {
             >
               <Image
                 className="object-cover place-self-center"
-                src={transitionImage ? profilepicReverse : profilepic}
+                src={transitionImage ? imgVerso : imgRecto}
                 priority
                 quality={100}
                 alt="Memoji de profil de l'utilisateur"
@@ -124,8 +135,9 @@ export function Avatar() {
           </motion.div>
         </AnimatePresence>
       </div>
-      {transitionImage && (
-        <Bull text="Bienvenue ! 😎" arrowPosition="topRight" />
+
+      {textBull && transitionImage && (
+        <Bull text={textBull} arrowPosition={arrowBullPosition} />
       )}
     </div>
   );
