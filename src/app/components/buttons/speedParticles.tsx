@@ -10,24 +10,24 @@ export default function SpeedParticles() {
   };
 
   return (
-    <div className="relative z-20 flex flex-col items-center justify-center gap-4 mb-4">
-      <div className="flex items-center gap-4">
-        <Button
-          theme="icon"
-          onClick={() => handleSpeedChange(Math.min(15, speed + 1))}
-          disabled={speed === 15}
-        >
-          <IoChevronUp />
-        </Button>
-        <Button
-          theme="icon"
-          onClick={() => handleSpeedChange(Math.max(0, speed - 1))} // Vitesse minimale de 1
-          disabled={speed === 0}
-        >
-          <IoChevronDown />
-        </Button>
-      </div>
-      Vitesse particules : {speed}
+    <div className="relative z-20 flex items-center justify-center gap-4">
+      <p className="text-sm text-foreground text-center">
+        {`Vitesse particules : ${speed}`}
+      </p>
+      <Button
+        theme="icon"
+        onClick={() => handleSpeedChange(Math.min(15, speed + 1))}
+        disabled={speed === 15}
+      >
+        <IoChevronUp className="text-foreground" />
+      </Button>
+      <Button
+        theme="icon"
+        onClick={() => handleSpeedChange(Math.max(0, speed - 1))} // Vitesse minimale de 1
+        disabled={speed === 0}
+      >
+        <IoChevronDown className="text-foreground" />
+      </Button>
     </div>
   );
 }
