@@ -48,6 +48,8 @@ export const Button = (props: ButtonProps) => {
       ? `border-none w-fit text-foreground  py-1 px-2 rounded-md ${
           isActive ? "bg-primary/20" : "hover:bg-primary/20"
         }`
+      : theme === "footer"
+      ? `text-sm border-none shadow-none w-fit text-foreground py-1 hover:text-primary after:content-[''] after:bg-primary after:transition-scale after:duration-300 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:origin-center after:scale-0 hover:after:scale-100 `
       : "";
 
   const disabledClasses = disabled
@@ -88,6 +90,7 @@ export const Button = (props: ButtonProps) => {
         href={href ? href : "#"}
         target={target}
         onClick={onClick}
+        rel="noopener noreferrer"
       >
         {children}
       </Link>
