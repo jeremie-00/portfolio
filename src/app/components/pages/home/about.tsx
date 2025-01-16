@@ -1,11 +1,16 @@
 import { Container, Content } from "../../containers";
 
+import { useIsMobile } from "@/app/hooks/useMobile";
 import { getAbout } from "@/app/services/about.actions";
 import { useEffect, useState } from "react";
-import { ChatBull } from "../../ChatBull";
+import { ChatBull, ChatBullProps } from "../../ChatBull";
 
 export default function About() {
   const [texts, setTexts] = useState<string[]>([]);
+  const isMobile = useIsMobile();
+  const positionArrow: ChatBullProps["arrowPosition"][] = isMobile
+    ? ["middleBottomLeft", "middleBottomRight"]
+    : ["bottomLeft", "bottomRight"];
   useEffect(() => {
     const fetchTexts = async () => {
       const about = await getAbout();
@@ -24,7 +29,7 @@ export default function About() {
                 key={index}
                 text={text}
                 arrowPosition={
-                  index % 2 === 0 ? "middleBottomLeft" : "middleBottomRight"
+                  index % 2 === 0 ? positionArrow[0] : positionArrow[1]
                 }
                 positionGrid={index % 2 === 0 ? "left" : "right"}
               />

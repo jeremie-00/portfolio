@@ -4,7 +4,7 @@ import Image from "next/image";
 import profilepicApropos from "../assets/profilepicApropos.png";
 import { useIsMobile } from "../hooks/useMobile";
 
-interface ChatBullProps {
+export interface ChatBullProps {
   text: string;
   arrowPosition?:
     | "topLeft"
@@ -25,11 +25,12 @@ export const Bull = (props: ChatBullProps) => {
   const arrowTop = isMobile ? "-top-14" : "-top-20";
   const arrowBottom = isMobile ? "-bottom-14" : "-bottom-20";
   const isRight = positionGrid === "right";
+
   const isMiddleArrow =
     arrowPosition === "middleBottomLeft" ||
-    "middleBottomRight" ||
-    "middleTopLeft" ||
-    "middleTopRight";
+    arrowPosition === "middleBottomRight" ||
+    arrowPosition === "middleTopLeft" ||
+    arrowPosition === "middleTopRight";
 
   const bullBaseClasse =
     "relative flex items-center justify-center rounded-xl bg-section shadow-custom";
@@ -86,7 +87,7 @@ export const Bull = (props: ChatBullProps) => {
       {/* Texte */}
       <p
         lang="fr"
-        className="w-full h-full whitespace-break-spaces break-words hyphens-auto p-2 md:p-8 md:text-lg text-sm"
+        className="w-full h-full whitespace-break-spaces break-words hyphens-auto p-4 md:p-8 md:text-lg text-sm"
       >
         {text}
       </p>
