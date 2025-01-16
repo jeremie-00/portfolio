@@ -11,45 +11,36 @@ export default function Footer() {
     <footer className="relative w-full h-full flex flex-col items-center justify-center p-8 z-50 bg-background border-t border-primary  mt-24">
       <div className="w-full flex flex-1 items-center justify-center gap-8">
         <ul className="flex flex-col items-center gap-2">
-          <li></li>
           <li>
-            <p className="text-foreground text-sm flex gap-2">
-              © {new Date().getFullYear() + " "}
-              Créé avec ❤️, du code 💻 et
+            <p className="text-foreground text-sm flex max-md:flex-col items-center justify-center gap-2">
+              <span>
+                © {new Date().getFullYear() + " "}
+                Créé avec ❤️,
+              </span>
+              <span>du code 💻 et</span>
               <Image src="/next.svg" alt="Next.js" width={80} height={80} />
-              par Jérémie Hérault. Hébergé sur
-              <Image
-                src="/vercel.svg"
-                alt="Next.js"
-                width={15}
-                height={15}
-              />{" "}
-              Vercel !
+              <span>par Jérémie Hérault.</span>
             </p>
           </li>
-          <li className="flex items-center gap-4">
+          <li>
+            <p className="text-foreground text-sm flex max-md:flex-col items-center justify-center gap-2">
+              Hébergé sur Vercel !
+            </p>
+          </li>
+          <li className="flex max-md:flex-col items-center justify-center gap-4">
             <span className="relative">
               <Button href="/pages/legal" theme="footer">
                 Mentions légales
               </Button>
             </span>
-            <span className="text-foreground">|</span>
-            {/*  <span className="relative">
-              <Button href="/pages/legal" theme="footer">
-                Plan du site
-              </Button>
-            </span> */}
-
+            <span className="text-foreground max-md:hidden">|</span>
             <SpeedParticles />
           </li>
-          {/*   <li>
-            <SpeedParticles />
-          </li> */}
         </ul>
         <Button
           href={`${path}`}
           theme="icon"
-          className="absolute bottom-[50%] right-10 m-auto scroll-to-top"
+          className="absolute max-md:-top-20 right-10 m-auto scroll-to-top"
         >
           <IoArrowUp className="text-primary" size={28} />
         </Button>
