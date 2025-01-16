@@ -74,7 +74,7 @@ const buttonData = [
     theme: "outline",
   },
   {
-    href: "/pages/2",
+    href: "/pages/contact",
     text: "Contactez-moi",
     icon: <IoMailOutline />,
     theme: "hover",
