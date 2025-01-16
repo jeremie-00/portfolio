@@ -11,7 +11,15 @@ interface AvatarProps {
   imgRecto: StaticImageData;
   imgVerso: StaticImageData;
   textBull?: string;
-  arrowBullPosition?: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+  arrowBullPosition?:
+    | "topLeft"
+    | "topRight"
+    | "bottomLeft"
+    | "bottomRight"
+    | "middleTopLeft"
+    | "middleTopRight"
+    | "middleBottomLeft"
+    | "middleBottomRight";
 }
 
 export function Avatar({

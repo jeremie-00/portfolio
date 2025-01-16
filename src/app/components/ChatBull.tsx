@@ -6,29 +6,53 @@ import { useIsMobile } from "../hooks/useMobile";
 
 interface ChatBullProps {
   text: string;
-  arrowPosition?: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+  arrowPosition?:
+    | "topLeft"
+    | "topRight"
+    | "bottomLeft"
+    | "bottomRight"
+    | "middleTopLeft"
+    | "middleTopRight"
+    | "middleBottomLeft"
+    | "middleBottomRight";
   positionGrid?: "left" | "right";
 }
 
 export const Bull = (props: ChatBullProps) => {
+  const isMobile = useIsMobile();
   const { text, arrowPosition, positionGrid } = props;
-
+  const arrowSize = isMobile ? "size-14" : "size-20";
+  const arrowTop = isMobile ? "-top-14" : "-top-20";
+  const arrowBottom = isMobile ? "-bottom-14" : "-bottom-20";
   const isRight = positionGrid === "right";
+  const isMiddleArrow =
+    arrowPosition === "middleBottomLeft" ||
+    "middleBottomRight" ||
+    "middleTopLeft" ||
+    "middleTopRight";
 
   const bullBaseClasse =
     "relative flex items-center justify-center rounded-xl bg-section shadow-custom";
 
-  const arrowBaseClasse = "absolute clip-triangle size-24 bg-section ";
+  const arrowBaseClasse = `absolute clip-triangle ${arrowSize} bg-section`;
 
   const arrowPositionClasses =
     arrowPosition === "topLeft"
-      ? "-top-24 left-0 -scale-y-100"
+      ? `${arrowTop} left-0 -scale-y-100`
       : arrowPosition === "topRight"
-      ? "-top-24 right-0 -scale-y-100 -scale-x-100 "
+      ? `${arrowTop} right-0 -scale-y-100 -scale-x-100`
       : arrowPosition === "bottomLeft"
-      ? "-bottom-24 left-0"
+      ? `${arrowBottom} left-0`
       : arrowPosition === "bottomRight"
-      ? "-bottom-24 right-0 -scale-x-100"
+      ? `${arrowBottom} right-0 -scale-x-100`
+      : arrowPosition === "middleBottomLeft"
+      ? `${arrowBottom}`
+      : arrowPosition === "middleBottomRight"
+      ? `${arrowBottom} -scale-x-100`
+      : arrowPosition === "middleTopLeft"
+      ? `${arrowTop} -scale-y-100`
+      : arrowPosition === "middleTopRight"
+      ? `${arrowTop} -scale-y-100 -scale-x-100`
       : "";
 
   const roundedNone =
@@ -49,8 +73,12 @@ export const Bull = (props: ChatBullProps) => {
       viewport={{ once: false, amount: 0.5 }}
       transition={{ duration: 0.4, delay: 0.1 }} // 0.4 secondes
       className={`${bullBaseClasse} ${roundedNone} ${
-        isRight ? "col-start-1" : "col-start-2"
-      }`}
+        isMiddleArrow
+          ? "col-start-1 col-span-2"
+          : isRight
+          ? "col-start-1 "
+          : "col-start-2"
+      } `}
     >
       {/* Fléche de discussion */}
       <span className={`${arrowBaseClasse} ${arrowPositionClasses} `}></span>
@@ -71,7 +99,7 @@ export const ChatBull = (props: ChatBullProps) => {
   const isRight = positionGrid === "right";
   const isMobile = useIsMobile();
   return (
-    <div className="grid grid-cols-2 grid-rows-1">
+    <div className="grid grid-cols-2 grid-rows-1 gap-2">
       {/* Image avec inversion horizontale si direction = "right" */}
       <Image
         className={`object-cover z-20 row-start-3 bg-section rounded-full shadow-custom ${

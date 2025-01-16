@@ -1,8 +1,8 @@
 import { Container, Content } from "../../containers";
 
-import { ChatBull } from "../../ChatBull";
 import { getAbout } from "@/app/services/about.actions";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { ChatBull } from "../../ChatBull";
 
 export default function About() {
   const [texts, setTexts] = useState<string[]>([]);
@@ -23,7 +23,9 @@ export default function About() {
               <ChatBull
                 key={index}
                 text={text}
-                arrowPosition={index % 2 === 0 ? "bottomLeft" : "bottomRight"}
+                arrowPosition={
+                  index % 2 === 0 ? "middleBottomLeft" : "middleBottomRight"
+                }
                 positionGrid={index % 2 === 0 ? "left" : "right"}
               />
             ))}

@@ -8,7 +8,15 @@ export interface AvatarProps {
   recto: StaticImageData;
   verso: StaticImageData;
   text: string;
-  arrowBullPosition: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+  arrowBullPosition?:
+    | "topLeft"
+    | "topRight"
+    | "bottomLeft"
+    | "bottomRight"
+    | "middleTopLeft"
+    | "middleTopRight"
+    | "middleBottomLeft"
+    | "middleBottomRight";
 }
 
 const dataAvatar: Record<string, AvatarProps> = {
@@ -16,19 +24,19 @@ const dataAvatar: Record<string, AvatarProps> = {
     recto: profilepicPc,
     verso: profilepicHandUp,
     text: "Bienvenue ! 😎",
-    arrowBullPosition: "topLeft",
+    arrowBullPosition: "middleTopLeft",
   },
   projet: {
     recto: profilepicPc,
     verso: profilepicThumbUp,
     text: "Bonne exploration ! 🚀",
-    arrowBullPosition: "topRight",
+    arrowBullPosition: "middleTopRight",
   },
   contact: {
     recto: profilepicPc,
     verso: profilepicPhone,
     text: "A bientôt ! 🙂",
-    arrowBullPosition: "topRight",
+    arrowBullPosition: "middleTopRight",
   },
 };
 
