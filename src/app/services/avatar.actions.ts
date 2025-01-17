@@ -1,12 +1,6 @@
-import { StaticImageData } from "next/image";
-import profilepicHandUp from "../assets/profilepicHandUp.png";
-import profilepicPc from "../assets/profilepicPc.png";
-import profilepicPhone from "../assets/profilepicPhone.png";
-import profilepicThumbUp from "../assets/profilepicThumbUp.png";
-
 export interface AvatarProps {
-  recto: StaticImageData;
-  verso: StaticImageData;
+  recto: string;
+  verso: string;
   text: string;
   arrowBullPosition?:
     | "topLeft"
@@ -21,20 +15,20 @@ export interface AvatarProps {
 
 const dataAvatar: Record<string, AvatarProps> = {
   acceuil: {
-    recto: profilepicPc,
-    verso: profilepicHandUp,
+    recto: "/profile/profilepicPc.png",
+    verso: "/profile/profilepicHandUp.png",
     text: "Bienvenue ! 😎",
     arrowBullPosition: "middleTopLeft",
   },
   projet: {
-    recto: profilepicPc,
-    verso: profilepicThumbUp,
+    recto: "/profile/profilepicPc.png",
+    verso: "/profile/profilepicThumbUp.png",
     text: "Bonne exploration ! 🚀",
     arrowBullPosition: "middleTopRight",
   },
   contact: {
-    recto: profilepicPc,
-    verso: profilepicPhone,
+    recto: "/profile/profilepicPc.png",
+    verso: "/profile/profilepicPhone.png",
     text: "A bientôt ! 🙂",
     arrowBullPosition: "middleTopRight",
   },

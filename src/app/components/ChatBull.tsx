@@ -1,11 +1,11 @@
 "use client";
 import { motion } from "motion/react";
 import Image from "next/image";
-import profilepicApropos from "../assets/profilepicApropos.png";
 import { useIsMobile } from "../hooks/useMobile";
 
 export interface ChatBullProps {
   text: string;
+  image?: string;
   arrowPosition?:
     | "topLeft"
     | "topRight"
@@ -96,7 +96,7 @@ export const Bull = (props: ChatBullProps) => {
 };
 
 export const ChatBull = (props: ChatBullProps) => {
-  const { text, arrowPosition, positionGrid } = props;
+  const { text, image, arrowPosition, positionGrid } = props;
   const isRight = positionGrid === "right";
   const isMobile = useIsMobile();
   return (
@@ -108,7 +108,7 @@ export const ChatBull = (props: ChatBullProps) => {
             ? "-scale-x-100 col-start-2 place-self-start"
             : "col-start-1 place-self-end"
         } `}
-        src={profilepicApropos}
+        src={image ? image : "/default.svg"}
         priority
         quality={100}
         alt="Memoji de profil de l'utilisateur"

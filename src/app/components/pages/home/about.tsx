@@ -7,6 +7,7 @@ import { ChatBull, ChatBullProps } from "../../ChatBull";
 
 export default function About() {
   const [texts, setTexts] = useState<string[]>([]);
+  const [image, setImage] = useState<string>();
   const isMobile = useIsMobile();
   const positionArrow: ChatBullProps["arrowPosition"][] = isMobile
     ? ["middleBottomLeft", "middleBottomRight"]
@@ -15,6 +16,7 @@ export default function About() {
     const fetchTexts = async () => {
       const about = await getAbout();
       setTexts(about.texts);
+      setImage(about.image);
     };
     fetchTexts();
   }, []);
@@ -28,6 +30,7 @@ export default function About() {
               <ChatBull
                 key={index}
                 text={text}
+                image={image}
                 arrowPosition={
                   index % 2 === 0 ? positionArrow[0] : positionArrow[1]
                 }

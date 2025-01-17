@@ -1,6 +1,8 @@
 export interface AboutProps {
   texts: string[];
+  image: string;
 }
+const image = "/profile/profilepicApropos.png";
 
 const texts = [
   `Ancien électrotechnicien reconverti en développeur web.`,
@@ -12,6 +14,6 @@ const texts = [
 export const getAbout = async (): Promise<AboutProps> => {
   // Simulez un appel à une base de données
   return new Promise((resolve) => {
-    setTimeout(() => resolve({ texts }), 100); // Simule une latence
+    setTimeout(() => resolve({ texts, image }), 100); // Simule une latence
   });
 };
