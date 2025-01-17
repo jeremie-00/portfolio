@@ -13,7 +13,7 @@ export function SectionProjetsCards() {
     fetchProjets();
   }, []);
   return (
-    <section className="section bg-linear-custom items-center justify-center">
+    <section className="section  items-center justify-center">
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 p-6">
         {projets.map((projet, i) => (
           <CardProjet key={i} projet={projet} />

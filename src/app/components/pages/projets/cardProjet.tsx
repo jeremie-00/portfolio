@@ -11,12 +11,12 @@ import { Card } from "../../cards/cards";
 
 export function CardProjet({ projet }: { projet: ProjetProps }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: false });
   const { id, title, shortDesc, skills, image } = projet;
   return (
     <div ref={ref} className="relative">
       <div
-        className="flex opacity-0 transition-all duration-500 ease-in-out"
+        className="w-full h-full flex opacity-0 transition-all duration-500 ease-in-out"
         style={{
           opacity: isInView ? 1 : 0,
           transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0.4s",
@@ -36,13 +36,15 @@ export function CardProjet({ projet }: { projet: ProjetProps }) {
             className="aspect-imgCardProjet object-contain rounded-lg bg-section shadow-lg border border-border"
           />
 
-          <div className="w-full h-full flex flex-1 flex-col items-start justify-start gap-2">
-            <h3 className="text-2xl font-bold">{title}</h3>
-            <hr className="w-20 border-primary border-[1.5px]"></hr>
-            <p>{shortDesc}</p>
+          <div className="w-full h-full flex flex-1 gap-2">
+            <div className="flex flex-col gap-2">
+              <h3 className="text-2xl font-bold">{title}</h3>
+              <hr className="w-20 border-primary border-[1.5px]"></hr>
+              <p>{shortDesc}</p>
+            </div>
           </div>
 
-          <div className="w-full flex flex-wrap items-start justify-start gap-2">
+          <div className="w-full flex flex-wrap content-start gap-2">
             {skills?.map((skill, i) => (
               <Badge key={i} text={skill} />
             ))}
