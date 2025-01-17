@@ -1,6 +1,6 @@
 "use client";
 import { AnimatePresence, motion } from "motion/react";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useParallax } from "react-scroll-parallax";
 
@@ -8,8 +8,8 @@ import { useIsMobile } from "../hooks/useMobile";
 import { Bull } from "./ChatBull";
 
 interface AvatarProps {
-  imgRecto: StaticImageData;
-  imgVerso: StaticImageData;
+  imgRecto: string;
+  imgVerso: string;
   textBull?: string;
   arrowBullPosition?:
     | "topLeft"
