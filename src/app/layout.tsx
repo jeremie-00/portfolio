@@ -86,7 +86,7 @@ export default function RootLayout({
         >
           <ParticlesProvider>
             <Header />
-            <main className="flex min-h-svh flex-col items-center overflow-x-hidden">
+            <main className="flex min-h-svh flex-col items-center">
               <StairTransition />
               <Transitions>
                 <ParallaxProviders>{children}</ParallaxProviders>

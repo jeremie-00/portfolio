@@ -14,7 +14,7 @@ const skills = [
     id: 1,
     title: "Css3",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1731739323739-5473-LDrbdAXPmmntzt5cPCnABZ1BS7aQLf.svg",
+      url: "/skills/css-3.svg",
       alt: title,
     },
   },
@@ -23,7 +23,7 @@ const skills = [
     id: 2,
     title: "React",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1732098880754-6727-l1U5jpD7vxgIJFboEvd3UG84PsFPwd.svg",
+      url: "/skills/react.svg",
       alt: title,
     },
   },
@@ -31,7 +31,7 @@ const skills = [
     id: 3,
     title: "JavaScript",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1732099482873-9254-MUnQ9W5Q4XnbGvTvt3nY4NKxpDDkWv.svg",
+      url: "/skills/javascript.svg",
       alt: title,
     },
   },
@@ -39,15 +39,15 @@ const skills = [
     id: 4,
     title: "Next.js",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1732099495081-8271-HtySgOkcL8ACQqDRMWSBqtN60coZDd.svg",
+      url: "/skills/nextjs.svg",
       alt: title,
     },
   },
   {
     id: 5,
-    title: "html",
+    title: "HTML",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1732101804347-1900-JFqccIYGWB4mGLxtyw3y3AB3BfF6tO.svg",
+      url: "/skills/html-5.svg",
       alt: title,
     },
   },
@@ -55,7 +55,7 @@ const skills = [
     id: 6,
     title: "Git",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1733472473828-1850-jxv26tLgHA13JUuUZRW3NEioVK4qQp.svg",
+      url: "/skills/git.svg",
       alt: title,
     },
   },
@@ -63,7 +63,7 @@ const skills = [
     id: 7,
     title: "Sass",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1733463216281-4735-kk2LSFOH0wtayqvS2IrpNFGWpY8TPs.svg",
+      url: "/skills/sass.svg",
       alt: title,
     },
   },
@@ -71,72 +71,87 @@ const skills = [
     id: 8,
     title: "Sqlite",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1734020300247-9599-mdpcrSMLU2N5num8wtKFFUpVKZDX7P.svg",
+      url: "/skills/sqlite.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 9,
+    title: "Figma",
+    image: {
+      url: "/skills/figma.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 10,
+    title: "Vite",
+    image: {
+      url: "/skills/vite.svg",
       alt: title,
     },
   },
   {
     id: 11,
-    title: "Css3",
+    title: "Vercel",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1731739323739-5473-LDrbdAXPmmntzt5cPCnABZ1BS7aQLf.svg",
+      url: "/skills/vercel.svg",
       alt: title,
     },
   },
-
   {
     id: 12,
-    title: "React",
+    title: "Typescript",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1732098880754-6727-l1U5jpD7vxgIJFboEvd3UG84PsFPwd.svg",
+      url: "/skills/typescript.svg",
       alt: title,
     },
   },
   {
     id: 13,
-    title: "JavaScript",
+    title: "Tailwind",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1732099482873-9254-MUnQ9W5Q4XnbGvTvt3nY4NKxpDDkWv.svg",
+      url: "/skills/tailwind.svg",
       alt: title,
     },
   },
   {
     id: 14,
-    title: "Next.js",
+    title: "Python",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1732099495081-8271-HtySgOkcL8ACQqDRMWSBqtN60coZDd.svg",
+      url: "/skills/python.svg",
       alt: title,
     },
   },
   {
     id: 15,
-    title: "html",
+    title: "Prisma",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1732101804347-1900-JFqccIYGWB4mGLxtyw3y3AB3BfF6tO.svg",
+      url: "/skills/prisma.svg",
       alt: title,
     },
   },
   {
     id: 16,
-    title: "Git",
+    title: "Postgresql",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1733472473828-1850-jxv26tLgHA13JUuUZRW3NEioVK4qQp.svg",
+      url: "/skills/postgresql.svg",
       alt: title,
     },
   },
   {
     id: 17,
-    title: "Sass",
+    title: "MongoDb",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1733463216281-4735-kk2LSFOH0wtayqvS2IrpNFGWpY8TPs.svg",
+      url: "/skills/mongodb.svg",
       alt: title,
     },
   },
   {
     id: 18,
-    title: "Sqlite",
+    title: "Github",
     image: {
-      url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/skills/1734020300247-9599-mdpcrSMLU2N5num8wtKFFUpVKZDX7P.svg",
+      url: "/skills/github.svg",
       alt: title,
     },
   },
@@ -148,3 +163,170 @@ export const getSkills = async (): Promise<SkillProps[]> => {
     setTimeout(() => resolve(skills), 100); // Simule une latence
   });
 };
+
+/* import { title } from "process";
+
+export interface SkillProps {
+  id: number;
+  title: string;
+  image: {
+    url: string;
+    alt: string;
+  };
+}
+
+const skills = [
+  {
+    id: 1,
+    title: "Css3",
+    image: {
+      url: "/skills/css-3.svg",
+      alt: title,
+    },
+  },
+
+  {
+    id: 2,
+    title: "React",
+    image: {
+      url: "/skills/react.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 3,
+    title: "JavaScript",
+    image: {
+      url: "/skills/javascript.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 4,
+    title: "Next.js",
+    image: {
+      url: "/skills/nextjs.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 5,
+    title: "HTML",
+    image: {
+      url: "/skills/html-5.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 6,
+    title: "Git",
+    image: {
+      url: "/skills/git.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 7,
+    title: "Sass",
+    image: {
+      url: "/skills/sass.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 8,
+    title: "Sqlite",
+    image: {
+      url: "/skills/sqlite.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 9,
+    title: "Figma",
+    image: {
+      url: "/skills/figma.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 10,
+    title: "Vite",
+    image: {
+      url: "/skills/vite.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 11,
+    title: "Vercel",
+    image: {
+      url: "/skills/vercel.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 12,
+    title: "Typescript",
+    image: {
+      url: "/skills/typescript.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 13,
+    title: "Tailwind",
+    image: {
+      url: "/skills/tailwind.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 14,
+    title: "Python",
+    image: {
+      url: "/skills/python.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 15,
+    title: "Prisma",
+    image: {
+      url: "/skills/prisma.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 16,
+    title: "Postgresql",
+    image: {
+      url: "/skills/postgresql.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 17,
+    title: "MongoDb",
+    image: {
+      url: "/skills/mongodb.svg",
+      alt: title,
+    },
+  },
+  {
+    id: 18,
+    title: "Github",
+    image: {
+      url: "/skills/github.svg",
+      alt: title,
+    },
+  },
+];
+
+export const getSkills = async (): Promise<SkillProps[]> => {
+  // Simulez un appel à une base de données
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(skills), 100); // Simule une latence
+  });
+};
+ */

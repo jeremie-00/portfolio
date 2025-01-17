@@ -4,7 +4,7 @@ import { AnimateSkills } from "./animateSkills";
 export default function Skills() {
   return (
     <>
-      <section className="section flex-col items-center justify-center bg-linear-custom">
+      <section className="section flex-col items-center justify-center bg-linear-custom overflow-x-hidden">
         <Container>
           <Content>
             <h2 className="h2">Mes compétences</h2>
@@ -15,12 +15,12 @@ export default function Skills() {
             </p>
           </Content>
         </Container>
-        <div className="flex flex-col items-center justify-center xl:gap-32 gap-20 md:py-32 py-14">
+        <div className="w-[110vw] flex flex-col items-center justify-center xl:gap-32 gap-20 md:py-32 py-14">
           <Banner className="rotate-3">
             <AnimateSkills />
           </Banner>
           <Banner className="rotate-negative-3">
-            <AnimateSkills direction={"right"} speed={10} />
+            <AnimateSkills direction={"right"} speed={30} />
           </Banner>
         </div>
       </section>

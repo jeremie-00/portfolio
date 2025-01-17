@@ -2,35 +2,40 @@
 
 import { useIsMobile } from "@/app/hooks/useMobile";
 import { getSkills, SkillProps } from "@/app/services/skills.actions";
-import { AnimatePresence, motion } from "motion/react"; // Utilisation de 'framer-motion'
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+function shuffleArray(array: SkillProps[]) {
+  return array.slice().sort(() => Math.random() - 0.5);
+}
+
 export function AnimateSkills({
   direction = "left",
-  speed = 30,
+  speed = 50,
 }: {
   direction?: "left" | "right";
   speed?: number;
 }) {
   const isMobile = useIsMobile();
   const isLeft = direction === "left";
-  const translateX = "-25%";
+  const translateX = "-50.5%";
   const animation = isLeft ? ["0%", translateX] : [translateX, "0%"];
 
   const [skills, setSkills] = useState<SkillProps[]>([]);
   useEffect(() => {
     const fetchSkills = async () => {
       const skills = await getSkills();
-      setSkills(skills);
+      const shuffledSkills = shuffleArray(skills);
+      setSkills(shuffledSkills);
     };
     fetchSkills();
   }, []);
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       <motion.div
-        className="flex gap-10"
+        className="flex gap-10 whitespace-nowrap"
         style={{
           width: "max-content",
         }}
@@ -51,7 +56,7 @@ export function AnimateSkills({
             className="rounded-xl border border-border shadow-custom"
           >
             <Image
-              src={skill.image?.url || "/globe.svg"}
+              src={skill.image?.url || "/default.svg"}
               alt={`${skill.title} logo`}
               className="object-cover rounded-xl p-1"
               width={isMobile ? 70 : 100}
