@@ -95,7 +95,7 @@ export default {
             {},
         },
         ".gradiant-title": {
-          "@apply bg-gradient-to-l from-primary from-20% to-foreground/80 bg-clip-text text-transparent font-extrabold":
+          "@apply bg-gradient-to-l from-primary from-20% to-foreground bg-clip-text text-transparent font-extrabold":
             {},
         },
         ".size-title": {
