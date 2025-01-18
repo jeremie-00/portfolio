@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@/app/providers/themeProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-
 import Header from "./components/header/header";
 import Footer from "./components/pages/footer";
 import { StairTransition } from "./components/transitionPages/stairTransition";
@@ -90,6 +90,7 @@ export default function RootLayout({
               <StairTransition />
               <Transitions>
                 <ParallaxProviders>{children}</ParallaxProviders>
+                <SpeedInsights />
               </Transitions>
             </main>
 
