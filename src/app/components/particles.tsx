@@ -41,7 +41,7 @@ export const ParticlesBackground = () => {
             value: resolvedTheme === "dark" ? "#000" : "#ffffff",
           },
         },
-        fpsLimit: 60,
+        fpsLimit: 120,
         interactivity: {
           events: {
             onClick: {
@@ -90,7 +90,7 @@ export const ParticlesBackground = () => {
               enable: true,
               area: 800,
             },
-            value: 40,
+            value: 25,
           },
           opacity: {
             value: 0.5,
