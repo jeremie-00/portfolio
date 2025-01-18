@@ -100,7 +100,7 @@ export function ContactForm() {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label htmlFor="firsName">Prénom</label>
+              <label htmlFor="firstName">Prénom</label>
               <input
                 type="text"
                 name="firstName"

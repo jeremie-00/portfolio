@@ -61,6 +61,7 @@ export function SlideShow({ pictures }: { pictures: string[] }) {
           theme="icon"
           className={pictures.length <= 1 ? "hidden" : "cursor-pointer"}
           onClick={handlePrev}
+          ariaLabel="Précédent"
         >
           <IoChevronBack className="text-primary" />
         </Button>
@@ -68,7 +69,7 @@ export function SlideShow({ pictures }: { pictures: string[] }) {
           className={
             pictures.length <= 1
               ? "hidden"
-              : "bg-section text-primary shadow-md text-center rounded-lg px-3 py-1 text-md font-semibold"
+              : "bg-section text-foreground shadow-md text-center rounded-lg px-3 py-1 text-md font-semibold"
           }
         >
           {activeIndex + 1} / {pictures.length}
@@ -77,6 +78,7 @@ export function SlideShow({ pictures }: { pictures: string[] }) {
           theme="icon"
           className={pictures.length <= 1 ? "hidden" : "cursor-pointer"}
           onClick={handleNext}
+          ariaLabel="Suivant"
         >
           <IoChevronForward className="text-primary" />
         </Button>

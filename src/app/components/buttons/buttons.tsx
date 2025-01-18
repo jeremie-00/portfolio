@@ -91,6 +91,7 @@ export const Button = (props: ButtonProps) => {
         target={target}
         onClick={onClick}
         rel="noopener noreferrer"
+        aria-label={ariaLabel}
       >
         {children}
       </Link>
@@ -103,6 +104,7 @@ export const Button = (props: ButtonProps) => {
         className={`${baseClasse} ${themeClasses} ${sizeClasses} ${className}`}
         href={href}
         download={download}
+        aria-label={ariaLabel}
       >
         {children}
       </a>

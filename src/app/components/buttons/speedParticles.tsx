@@ -17,6 +17,7 @@ export default function SpeedParticles() {
       <Button
         theme="icon"
         onClick={() => handleSpeedChange(Math.min(15, speed + 1))}
+        ariaLabel="Augmenter la vitesse des particules"
         disabled={speed === 15}
       >
         <IoChevronUp className="text-foreground" />
@@ -24,6 +25,7 @@ export default function SpeedParticles() {
       <Button
         theme="icon"
         onClick={() => handleSpeedChange(Math.max(0, speed - 1))} // Vitesse minimale de 1
+        ariaLabel="Reduire la vitesse des particules"
         disabled={speed === 0}
       >
         <IoChevronDown className="text-foreground" />

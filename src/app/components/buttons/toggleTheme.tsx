@@ -28,7 +28,7 @@ export default function ToggleTheme() {
     <Button
       theme="icon"
       onClick={toggleTheme}
-      aria-label="Basculer entre le thème clair et sombre"
+      ariaLabel="Basculer entre le thème clair et sombre"
     >
       {resolvedTheme === "light" ? (
         <IoMoonOutline className="size-[1.5rem]" />

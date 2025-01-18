@@ -41,6 +41,7 @@ export default function Footer() {
           href={`${path}`}
           theme="icon"
           className="absolute max-md:-top-20 right-10 m-auto scroll-to-top"
+          ariaLabel="Retour au haut de la page"
         >
           <IoArrowUp className="text-primary" size={28} />
         </Button>
