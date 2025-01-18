@@ -54,11 +54,11 @@ export const metadata: Metadata = {
     title: "Portfolio de Jérémie Hérault | Développeur Web Full-Stack",
     description:
       "Découvrez les réalisations de Jérémie Hérault, développeur web passionné.",
-    url: "https://portfolio-vf-mu.vercel.app/",
+    url: "https://jh-tech.fr/",
     siteName: "Portfolio de Jérémie Hérault",
     images: [
       {
-        url: "https://portfolio-vf-mu.vercel.app/preview-image.jpg",
+        url: "https:/jh-tech.fr/profilepicPc.jpg",
         width: 1200,
         height: 630,
         alt: "Aperçu du portfolio de Jérémie Hérault",
