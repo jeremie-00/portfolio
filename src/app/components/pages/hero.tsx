@@ -18,7 +18,7 @@ const UnderlineText = () => {
   const isMobile = useIsMobile();
   return (
     <RoughNotationGroup show={true}>
-      <p className="p">
+      <p className="p bg-background/10">
         <span>
           <RoughNotation
             order="1"
@@ -146,7 +146,7 @@ export function Hero() {
               <Buttons />
             </>
           ) : (
-            <p className="p"> {textHero} </p>
+            <p className="p bg-background/10"> {textHero} </p>
           )}
         </Content>
 

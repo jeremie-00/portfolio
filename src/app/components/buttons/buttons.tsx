@@ -35,11 +35,11 @@ export const Button = (props: ButtonProps) => {
 
   const themeClasses =
     theme === "primary"
-      ? "bg-primary hover:bg-primary/80"
+      ? "bg-primary text-black hover:bg-primary/80"
       : theme === "outline"
-      ? "hover:bg-primary/20 hover:text-primary"
+      ? "bg-background/80 hover:bg-primary/20 hover:text-primary"
       : theme === "hover"
-      ? "border-none bg-primary hover:scale-105 hover:bg-primary/80"
+      ? "border-none bg-primary text-black hover:scale-105 hover:bg-primary/80"
       : theme === "icon"
       ? "p-2 hover:border-primary"
       : theme === "underline"
