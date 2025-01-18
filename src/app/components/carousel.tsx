@@ -49,7 +49,7 @@ export function SlideShow({ pictures }: { pictures: string[] }) {
               alt={`image ${index}`}
               width={1400}
               height={600}
-              priority={true}
+              loading="lazy"
             />
           ))}
         </div>

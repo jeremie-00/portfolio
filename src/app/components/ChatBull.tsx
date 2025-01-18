@@ -109,7 +109,6 @@ export const ChatBull = (props: ChatBullProps) => {
             : "col-start-1 place-self-end"
         } `}
         src={image ? image : "/default.svg"}
-        priority
         quality={100}
         alt="Memoji de profil de l'utilisateur"
         aria-label="Memoji de profil"
@@ -119,6 +118,7 @@ export const ChatBull = (props: ChatBullProps) => {
           width: isMobile ? 150 : 250,
           height: isMobile ? 150 : 250,
         }}
+        loading="lazy"
       />
       {/* Bulle de discussion */}
       <Bull

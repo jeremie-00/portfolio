@@ -18,7 +18,14 @@ export default function Footer() {
                 Créé avec ❤️,
               </span>
               <span>du code 💻 et</span>
-              <Image src="/next.svg" alt="Next.js" width={80} height={80} />
+              <Image
+                src="/next.svg"
+                alt="Next.js"
+                width={80}
+                height={80}
+                className="w-16"
+                loading="lazy"
+              />
               <span>par Jérémie Hérault.</span>
             </p>
           </li>

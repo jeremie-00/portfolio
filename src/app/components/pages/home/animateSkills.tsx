@@ -61,6 +61,7 @@ export function AnimateSkills({
               className="object-cover rounded-xl p-1"
               width={isMobile ? 70 : 100}
               height={isMobile ? 70 : 100}
+              loading="lazy"
             />
           </div>
         ))}

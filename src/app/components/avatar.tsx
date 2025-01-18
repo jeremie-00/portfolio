@@ -95,7 +95,6 @@ export function Avatar({
               <Image
                 className="object-cover place-self-center"
                 src={transitionImage ? imgVerso : imgRecto}
-                priority
                 quality={100}
                 alt="Memoji de profil de l'utilisateur"
                 aria-label="Memoji de profil"
@@ -105,6 +104,7 @@ export function Avatar({
                   width: sizeAvatar,
                   height: sizeAvatar,
                 }}
+                loading="lazy"
               />
             </motion.div>
 

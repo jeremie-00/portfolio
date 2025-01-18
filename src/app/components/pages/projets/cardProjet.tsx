@@ -34,6 +34,7 @@ export function CardProjet({ projet }: { projet: ProjetProps }) {
             width={400}
             height={400}
             className="aspect-imgCardProjet object-contain rounded-lg bg-section shadow-lg border border-border"
+            loading="lazy"
           />
 
           <div className="w-full h-full flex flex-1 gap-2">
