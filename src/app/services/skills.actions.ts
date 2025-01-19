@@ -155,6 +155,14 @@ const skills = [
       alt: title,
     },
   },
+  {
+    id: 19,
+    title: "Node.js",
+    image: {
+      url: "/skills/nodejs.svg",
+      alt: title,
+    },
+  },
 ];
 
 export const getSkills = async (): Promise<SkillProps[]> => {
