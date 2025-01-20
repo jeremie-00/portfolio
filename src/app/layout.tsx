@@ -66,6 +66,7 @@ export const metadata: Metadata = {
     ],
     type: "website",
   },
+  metadataBase: new URL("https://jh-tech.fr"),
 };
 
 export default function RootLayout({
