@@ -62,12 +62,14 @@ export default function NavMobile() {
     <>
       <div>
         {!isMenuOpen && (
-          <button
+          <Button
             onClick={toggleMenu}
+            theme="icon"
             className="text-2xl place-self-end border border-border rounded-md rounded-tr-2xl p-2"
+            ariaLabel="Menu"
           >
             <CgMenu className="size-[1.8rem]" />
-          </button>
+          </Button>
         )}
       </div>
       <AnimatePresence>
@@ -90,7 +92,11 @@ export default function NavMobile() {
             <div className="bg-background border border-border/20 border-r-0 rounded-l-lg p-4 flex flex-col items-start justify-start gap-16 h-screen">
               <div className="w-full flex items-center justify-between">
                 <ToggleTheme />
-                <Button onClick={toggleMenu} theme="icon">
+                <Button
+                  onClick={toggleMenu}
+                  theme="icon"
+                  ariaLabel="Fermer le menu"
+                >
                   <FiX className="size-[1.5rem]" />
                 </Button>
               </div>
@@ -105,6 +111,7 @@ export default function NavMobile() {
                           href={link.href}
                           isActive={isActive}
                           theme="highlight"
+                          ariaLabel={`Aller à la page ${link.title}`}
                         >
                           {link.title}
                         </Button>

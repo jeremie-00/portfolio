@@ -9,10 +9,10 @@ export default function Logo() {
       className="flex items-center hover:scale-105 transition-scale duration-300"
     >
       <Image
-        src={"/logo.png"}
+        src={"/icon.svg"}
         alt={"Logo JH"}
-        width={192}
-        height={192}
+        width={600}
+        height={600}
         className="w-12 h-12"
         loading="lazy"
       />

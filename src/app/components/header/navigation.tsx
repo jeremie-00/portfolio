@@ -1,8 +1,8 @@
 "use client";
-import { usePathname } from "next/navigation";
-import { Button } from "../buttons/buttons";
 import { NavLinksProps, getNavLinks } from "@/app/services/navigation.actions";
-import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Button } from "../buttons/buttons";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -31,6 +31,7 @@ export default function Navigation() {
                     ? "after:scale-100 text-primary"
                     : "hover:after:scale-100"
                 }`}
+                ariaLabel={`Aller à la page ${link.title}`}
               >
                 {link.title}
               </Button>
