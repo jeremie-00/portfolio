@@ -1,65 +1,53 @@
 "use client";
 import { useIsMobile } from "@/app/hooks/useMobile";
 
-import { useParams, usePathname } from "next/navigation";
 import { IoLogoGithub, IoMailOutline } from "react-icons/io5";
 import { RxDownload } from "react-icons/rx";
-import { RoughNotation, RoughNotationGroup } from "react-rough-notation";
+import { RoughNotation, RoughNotationGroup, types } from "react-rough-notation";
 
-import { AvatarProps, getAvatarById } from "@/app/services/avatar.actions";
-import { getTextsHeroById } from "@/app/services/textHero.actions";
-import { useEffect, useState } from "react";
+import { AvatarProps } from "@/app/services/avatar.actions";
+import { NotationType, SectionType } from "@/app/types/prismaType";
 import { Avatar } from "../avatar";
 import { Button } from "../buttons/buttons";
 import { Container, Content } from "../containers";
 import SectionMarker from "../sectionMarker";
 
-const UnderlineText = () => {
+const UnderlineText = ({
+  textsNotation,
+}: {
+  textsNotation: NotationType[];
+}) => {
   const isMobile = useIsMobile();
+  const color = "#6366F1";
+
   return (
     <RoughNotationGroup show={true}>
       <p className="p">
-        <span>
-          <RoughNotation
-            order="1"
-            type="underline"
-            color="#6366F1" // Couleur pour l'animation (violet Tailwind)
-            animate={true}
-            animationDelay={1000}
-            strokeWidth={2}
-            padding={[0, 0]}
-            multiline={true}
-          >
-            Créateur de site web
-          </RoughNotation>
-          , je conçois et développe des applications web modernes,
-        </span>
-        <RoughNotation
-          order="2"
-          type="circle"
-          color="#6366F1" // Couleur pour l'animation (violet Tailwind)
-          animate={true}
-          animationDelay={1000}
-          strokeWidth={1}
-          padding={isMobile ? [5, 20] : [10, 25]}
-          multiline={true}
-        >
-          &nbsp;dynamiques et performantes,
-        </RoughNotation>
-        &nbsp;du design au déploiement, avec une attention particulière
-        pour&nbsp;
-        <RoughNotation
-          order="3"
-          type="underline"
-          color="#6366F1" // Couleur pour l'animation (violet Tailwind)
-          animate={true}
-          animationDelay={1000}
-          strokeWidth={2}
-          padding={[0, 0]}
-          multiline={true}
-        >
-          l&apos;expérience utilisateur.
-        </RoughNotation>
+        {textsNotation?.map(({ order, type, textNotation, text }, index) => (
+          <span key={index}>
+            {textNotation && (
+              <RoughNotation
+                order={order}
+                type={type as types}
+                color={color}
+                animate={true}
+                animationDelay={1000}
+                strokeWidth={2}
+                padding={
+                  type !== "circle"
+                    ? [0, 0]
+                    : type === "circle" && isMobile
+                    ? [5, 20]
+                    : [10, 25]
+                }
+                multiline={true}
+              >
+                {textNotation}
+              </RoughNotation>
+            )}
+            {text}
+          </span>
+        ))}
       </p>
     </RoughNotationGroup>
   );
@@ -112,45 +100,32 @@ const Buttons = () => {
   );
 };
 
-export function Hero() {
-  const params = useParams();
-  const isHomePage = usePathname() === "/";
-  let paramsId = Array.isArray(params?.id) ? params.id[0] : params?.id;
-  paramsId = paramsId === undefined ? "acceuil" : paramsId;
-
-  const [avatar, setAvatar] = useState<AvatarProps>();
-  const [titleHero, setTitleHero] = useState<string>();
-  const [textHero, setTextHero] = useState<string>();
-
-  useEffect(() => {
-    const fetchDatas = async () => {
-      const avatar = await getAvatarById(paramsId);
-      setAvatar(avatar);
-
-      const textsHero = await getTextsHeroById(paramsId);
-      setTitleHero(textsHero.title);
-      setTextHero(textsHero.text);
-    };
-    fetchDatas();
-  }, [paramsId]);
-
+export function Hero({
+  avatar,
+  section,
+  textsNotation,
+}: {
+  avatar: AvatarProps;
+  section: SectionType;
+  textsNotation?: NotationType[];
+}) {
   return (
     <section className="section justify-center">
       <SectionMarker rotate={0} />
       <Container>
-        <Content className="">
-          <h1 className="h1">{titleHero}</h1>
-          {isHomePage ? (
+        <Content>
+          <h1 className="h1">{section.title}</h1>
+          {textsNotation ? (
             <>
-              <UnderlineText />
+              <UnderlineText textsNotation={textsNotation} />
               <Buttons />
             </>
           ) : (
-            <p className="p"> {textHero} </p>
+            <p className="p"> {section.text} </p>
           )}
         </Content>
 
-        <Content className="">
+        <Content>
           {avatar && (
             <Avatar
               imgRecto={avatar.recto}
