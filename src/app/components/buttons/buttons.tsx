@@ -36,6 +36,8 @@ export const Button = (props: ButtonProps) => {
   const themeClasses =
     theme === "primary"
       ? "bg-primary text-black hover:bg-primary/80"
+      : theme === "delete"
+      ? "bg-red-600 text-white hover:bg-red-900 w-fit p-2"
       : theme === "outline"
       ? "bg-background/80 hover:bg-primary/20 hover:text-primary"
       : theme === "hover"
@@ -45,7 +47,7 @@ export const Button = (props: ButtonProps) => {
       : theme === "underline"
       ? "lg:text-[1.25rem] text-[1rem] border-none shadow-none dark:shadow-none w-fit hover:text-primary after:content-[''] after:bg-primary after:transition-scale after:duration-300 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:origin-center after:scale-0 "
       : theme === "highlight"
-      ? `border-none w-fit text-foreground  py-1 px-2 rounded-md ${
+      ? `border-none shadow-none w-fit text-foreground py-1 px-2 rounded-md ${
           isActive ? "bg-primary/20" : "hover:bg-primary/20"
         }`
       : theme === "footer"
