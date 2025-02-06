@@ -49,6 +49,13 @@ export default {
     plugin(function ({ addBase, addComponents, addUtilities }) {
       addBase({});
       addComponents({
+        ".form": {
+          "@apply relative w-full h-full flex flex-col bg-section gap-12 p-6 shadow-custom rounded-xl":
+            {},
+        },
+        ".label-form": {
+          "@apply flex flex-col gap-2": {},
+        },
         ".section": {
           "@apply relative w-full h-full flex py-14 px-6 md:px-20": {},
         },
@@ -67,6 +74,9 @@ export default {
         ".h2": {
           "@apply w-full gradiant-title text-center size-title": {},
         },
+        ".h2-form": {
+          "@apply text-xl text-primary font-semibold mb-2 text-center": {},
+        },
         ".h2-legal": {
           "@apply text-xl text-primary font-semibold mb-2": {},
         },
@@ -79,6 +89,10 @@ export default {
             {},
         },
         textarea: {
+          "@apply w-full h-full p-2 bg-white/80 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 ease-in-out":
+            {},
+        },
+        select: {
           "@apply w-full h-full p-2 bg-white/80 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-300 ease-in-out":
             {},
         },
@@ -106,6 +120,19 @@ export default {
         },
         ".shadow-custom": {
           "@apply shadow-lg dark:shadow-md dark:shadow-primary/40": {},
+        },
+        ".error": { "@apply text-red-500 text-sm p-8": {} },
+        ".dialog-overlay": {
+          "@apply fixed top-0 left-0 right-0 bottom-0 m-auto w-fit h-fit bg-background rounded-xl shadow-custom p-12 z-50":
+            {},
+        },
+        ".dialog": {
+          "@apply w-full h-full flex flex-col items-center justify-center gap-4":
+            {},
+        },
+        ".modal": {
+          "@apply absolute top-0 left-0 w-full h-full flex items-center justify-center gap-4 backdrop-blur-sm rounded-lg z-50":
+            {},
         },
       });
 
