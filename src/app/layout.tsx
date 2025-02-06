@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "./components/header/header";
 import Footer from "./components/pages/footer";
+import SessionWrapper from "./components/sessionWrapper";
+import { ToastNotification } from "./components/toast";
 import { StairTransition } from "./components/transitionPages/stairTransition";
 import { Transitions } from "./components/transitionPages/transitions";
 import "./globals.css";
@@ -75,30 +77,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" suppressHydrationWarning>
-      <body
-        className={`${geistSans.className} ${geistMono.className} relative antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
+    <SessionWrapper>
+      <html lang="fr" suppressHydrationWarning>
+        <body
+          className={`${geistSans.className} ${geistMono.className} relative antialiased`}
         >
-          <ParticlesProvider>
-            <Header />
-            <main className="flex min-h-svh flex-col items-center">
-              <StairTransition />
-              <Transitions>
-                <ParallaxProviders>{children}</ParallaxProviders>
-                <SpeedInsights />
-              </Transitions>
-            </main>
-
-            <Footer />
-          </ParticlesProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ParticlesProvider>
+              <Header />
+              <main className="flex min-h-svh flex-col items-center">
+                <StairTransition />
+                <Transitions>
+                  <ParallaxProviders>{children}</ParallaxProviders>
+                  <SpeedInsights />
+                </Transitions>
+              </main>
+              <ToastNotification />
+              <Footer />
+            </ParticlesProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }
