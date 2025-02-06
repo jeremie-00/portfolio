@@ -5,7 +5,6 @@ import Form from "next/form";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 import { LuLoaderCircle } from "react-icons/lu";
-import { Flip, ToastContainer } from "react-toastify";
 import { Button } from "../../buttons/buttons";
 import { showToast } from "../../toast";
 
@@ -65,6 +64,12 @@ export function ContactForm() {
         "Une erreur est survenue lors de l'envoi de votre e-mail ! 😔"
       );
     }
+    setFormData({
+      lastName: "",
+      firstName: "",
+      email: "",
+      message: "",
+    });
   };
 
   return (
@@ -83,24 +88,21 @@ export function ContactForm() {
             transformOrigin: "top",
           }}
         />
-        <Form
-          action={handleSubmit}
-          className="relative w-full h-full flex flex-col bg-section gap-12 p-6 shadow-custom rounded-xl"
-        >
+        <Form action={handleSubmit} className="form">
           <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="lastName">Nom</label>
+            <label htmlFor="lastName" className="label-form">
+              Nom
               <input
-                className=""
                 type="text"
                 name="lastName"
                 id="lastName"
                 placeholder="Doe"
                 onChange={handleChange}
               />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="firstName">Prénom</label>
+            </label>
+
+            <label htmlFor="firstName" className="label-form">
+              Prénom
               <input
                 type="text"
                 name="firstName"
@@ -108,10 +110,11 @@ export function ContactForm() {
                 placeholder="John"
                 onChange={handleChange}
               />
-            </div>
+            </label>
           </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="email">Email</label>
+
+          <label htmlFor="email" className="label-form">
+            Email
             <input
               type="email"
               name="email"
@@ -119,9 +122,10 @@ export function ContactForm() {
               placeholder="email@exemple.com"
               onChange={handleChange}
             />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="message">Message</label>
+          </label>
+
+          <label htmlFor="message" className="label-form">
+            Message
             <textarea
               name="message"
               id="message"
@@ -133,26 +137,13 @@ export function ContactForm() {
             <span className="text-sm text-foreground/60 text-right mt-2">
               {formData.message.length}/500
             </span>
-          </div>
+          </label>
 
           <div className="flex justify-end gap-4">
             <BtnSubmit />
           </div>
         </Form>
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition={Flip}
-      />
     </section>
   );
 }

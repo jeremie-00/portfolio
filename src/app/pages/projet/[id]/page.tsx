@@ -30,9 +30,7 @@ export default function Page() {
   if (!projet) {
     return (
       <section className="container flex flex-col items-center justify-center gap-8 py-4">
-        <h1 className="text-4xl text-center text-red-500">
-          Projet introuvable
-        </h1>
+        <h1 className="error text-xl">Projet introuvable</h1>
       </section>
     );
   }

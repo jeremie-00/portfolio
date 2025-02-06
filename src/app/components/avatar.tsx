@@ -29,8 +29,7 @@ export function Avatar({
   arrowBullPosition,
 }: AvatarProps) {
   const isMobile = useIsMobile();
-  const [sizeAvatar, setSizeAvatar] = useState(isMobile ? 200 : 300);
-  const [sizeCircle, setSizeCircle] = useState(sizeAvatar + 50);
+  const sizeAvatar = isMobile ? 200 : 300;
   const [transitionImage, setTransitionImage] = useState(false);
 
   const parallax = useParallax<HTMLDivElement>({
@@ -42,15 +41,11 @@ export function Avatar({
       : { top: -300, right: 100, bottom: -300, left: 100 },
   });
 
-  useEffect(() => {
-    setSizeAvatar(isMobile ? 200 : 300);
-    setSizeCircle(sizeAvatar + 50);
-  }, [sizeAvatar, isMobile, sizeCircle]);
-
   // Changer l'image quand la rotation est supérieure à 90°
   useEffect(() => {
     const handleScroll = () => {
       const element = parallax.ref.current;
+      if (!element) return;
       const rotateY = element.style.transform;
       const valueRotateY = rotateY.match(/rotateY\((-?\d+(\.\d+)?)deg\)/);
 

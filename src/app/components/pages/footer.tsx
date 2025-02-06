@@ -8,7 +8,7 @@ import SpeedParticles from "../buttons/speedParticles";
 export default function Footer() {
   const path = usePathname();
   return (
-    <footer className="relative w-full h-full flex flex-col items-center justify-center p-8 z-50 bg-background border-t border-primary  mt-24">
+    <footer className="relative w-full h-full flex flex-col items-center justify-center p-8 z-40 bg-background border-t border-primary  mt-24">
       <div className="w-full flex flex-1 items-center justify-center gap-8">
         <ul className="flex flex-col items-center gap-2">
           <li>

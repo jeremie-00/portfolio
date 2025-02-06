@@ -14,7 +14,7 @@ export interface AvatarProps {
 }
 
 const dataAvatar: Record<string, AvatarProps> = {
-  acceuil: {
+  accueil: {
     recto: "/profile/profilepicPc.png",
     verso: "/profile/profilepicHandUp.png",
     text: "Bienvenue ! 😎",
