@@ -3,26 +3,42 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model image {
-  id        String   @id @default(uuid())
-  url       String
-  alt       String
-  position  String?  @default("left")
-  sectionId String   @unique
-  section   Section? @relation("SectionToImage", fields: [sectionId], references: [id], onDelete: Cascade)
+model RevokedToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  createdAt DateTime @default(now()) // Date de création
+}
+
+model Image {
+  id      String  @id @default(cuid())
+  url     String
+  alt     String
+  skillId String? @unique
+  skill   Skill?  @relation("SkillImage", fields: [skillId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id    String @id @default(uuid())
+  title String
+  image Image? @relation("SkillImage")
+}
+
+model TextNotation {
+  id           String  @id @default(uuid())
+  page         String
+  order        Int
+  type         String?
+  text         String?
+  textNotation String?
 }
 
 model Section {
-  id          String @id @default(uuid())
-  name        String
-  title       String
-  subtitle    String
-  description String
-  page        Int
-  order       Int
-  image       image? @relation("SectionToImage")
+  id      String  @id @default(uuid())
+  section String  @unique
+  title   String
+  text    String?
 }
