@@ -1,19 +1,16 @@
 "use client";
 
 import { useIsMobile } from "@/app/hooks/useMobile";
-import { getSkills, SkillProps } from "@/app/services/skills.actions";
+import { FullSkill } from "@/app/types/prismaType";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-
-function shuffleArray(array: SkillProps[]) {
-  return array.slice().sort(() => Math.random() - 0.5);
-}
 
 export function AnimateSkills({
+  skills,
   direction = "left",
   speed = 50,
 }: {
+  skills: FullSkill[];
   direction?: "left" | "right";
   speed?: number;
 }) {
@@ -21,16 +18,6 @@ export function AnimateSkills({
   const isLeft = direction === "left";
   const translateX = "-50.5%";
   const animation = isLeft ? ["0%", translateX] : [translateX, "0%"];
-
-  const [skills, setSkills] = useState<SkillProps[]>([]);
-  useEffect(() => {
-    const fetchSkills = async () => {
-      const skills = await getSkills();
-      const shuffledSkills = shuffleArray(skills);
-      setSkills(shuffledSkills);
-    };
-    fetchSkills();
-  }, []);
 
   return (
     <AnimatePresence mode="wait">
