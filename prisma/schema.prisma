@@ -19,6 +19,8 @@ model Image {
   alt     String
   skillId String? @unique
   skill   Skill?  @relation("SkillImage", fields: [skillId], references: [id], onDelete: Cascade)
+  aboutId String? @unique
+  about   About?  @relation("AboutImage", fields: [aboutId], references: [id], onDelete: Cascade)
 }
 
 model Skill {
@@ -41,4 +43,13 @@ model Section {
   section String  @unique
   title   String
   text    String?
+}
+
+model About {
+  id            String @id @default(uuid())
+  text          String
+  order         Int
+  arrowPosition String
+  position      String
+  image         Image? @relation("AboutImage")
 }
