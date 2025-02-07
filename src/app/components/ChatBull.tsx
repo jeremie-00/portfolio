@@ -2,10 +2,11 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import { useIsMobile } from "../hooks/useMobile";
+import { ImageType } from "../types/prismaType";
 
 export interface ChatBullProps {
   text: string;
-  image?: string;
+  image?: ImageType | null;
   arrowPosition?:
     | "topLeft"
     | "topRight"
@@ -108,9 +109,9 @@ export const ChatBull = (props: ChatBullProps) => {
             ? "-scale-x-100 col-start-2 place-self-start"
             : "col-start-1 place-self-end"
         } `}
-        src={image ? image : "/default.svg"}
+        src={image ? image.url : "/default.svg"}
         quality={100}
-        alt="Memoji de profil de l'utilisateur"
+        alt={image ? image.alt : "Memoji de profil de l'utilisateur"}
         aria-label="Memoji de profil"
         width={800}
         height={800}
