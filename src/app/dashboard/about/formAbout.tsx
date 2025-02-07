@@ -8,13 +8,14 @@ import React from "react";
 import { useAboutActions, useAboutState } from "./providersAbout";
 
 export function FormAbout() {
-  const { showForm, updated, selectedId, formData, order } = useAboutState();
+  const { showForm, updated, selectedId, formData, lengthAbout } =
+    useAboutState();
   const {
     setShowForm,
     setUpdated,
     setSelectedId,
     setFormData,
-    setOrder,
+    setLengthAbout,
     refetch,
     create,
     update,
@@ -63,7 +64,7 @@ export function FormAbout() {
       if (updated) {
         handleShowForm();
       } else {
-        setOrder(order + 1);
+        setLengthAbout(lengthAbout + 1);
       }
     }
   };
@@ -112,7 +113,7 @@ export function FormAbout() {
               name="order"
               id="order"
               placeholder="Enter order"
-              value={formData.order ? formData.order : order}
+              value={formData.order ? formData.order : lengthAbout}
               onChange={handleChange}
             />
           </label>
