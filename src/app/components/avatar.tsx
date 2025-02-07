@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { useParallax } from "react-scroll-parallax";
 
 import { useIsMobile } from "../hooks/useMobile";
+import { ImageType } from "../types/prismaType";
 import { Bull } from "./ChatBull";
 
 interface AvatarProps {
-  imgRecto: string;
-  imgVerso: string;
+  imgRecto: ImageType | null;
+  imgVerso: ImageType | null;
+
   textBull?: string;
   arrowBullPosition?:
     | "topLeft"
@@ -89,7 +91,11 @@ export function Avatar({
             >
               <Image
                 className="object-cover place-self-center"
-                src={transitionImage ? imgVerso : imgRecto}
+                src={
+                  transitionImage && imgVerso && imgRecto
+                    ? imgVerso.url
+                    : imgRecto?.url || "/icon.svg"
+                }
                 quality={100}
                 alt="Memoji de profil de l'utilisateur"
                 aria-label="Memoji de profil"
