@@ -48,6 +48,8 @@ interface TableProps<TData extends { id: string }> {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
   lengthTexts?: number;
   setLengthTexts?: React.Dispatch<React.SetStateAction<number>>;
+  order?: number;
+  setOrder?: React.Dispatch<React.SetStateAction<number>>;
   remove: ({ id }: { id: string }) => Promise<Result>;
   columnsData: ColumnDef<TData, unknown>[];
 }
@@ -61,6 +63,8 @@ export function TableData<TData extends { id: string }>({
   setShowForm,
   lengthTexts,
   setLengthTexts,
+  order,
+  setOrder,
   remove,
   columnsData,
 }: TableProps<TData>) {
@@ -134,6 +138,7 @@ export function TableData<TData extends { id: string }>({
 
       if (lengthTexts && setLengthTexts)
         setLengthTexts(lengthTexts - response.length);
+      if (order && setOrder) setOrder(order - response.length);
       setLoadingDelete(false);
       setShowDialog(false);
       setDeleteId(null);
