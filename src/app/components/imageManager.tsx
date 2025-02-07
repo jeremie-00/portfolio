@@ -1,11 +1,13 @@
 import Image from "next/image";
 
 interface ImageProps {
+  name?: string;
   url: string;
   imagePreview: string | null;
   setImagePreview: (url: string | null) => void;
 }
 export const ImageManager = ({
+  name = "image",
   url,
   imagePreview,
   setImagePreview,
@@ -50,7 +52,7 @@ export const ImageManager = ({
         <input
           type="file"
           accept="image/*"
-          name="image"
+          name={name}
           onChange={handleImageChange}
         />
       </div>
