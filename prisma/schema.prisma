@@ -14,13 +14,17 @@ model RevokedToken {
 }
 
 model Image {
-  id      String  @id @default(cuid())
-  url     String
-  alt     String
-  skillId String? @unique
-  skill   Skill?  @relation("SkillImage", fields: [skillId], references: [id], onDelete: Cascade)
-  aboutId String? @unique
-  about   About?  @relation("AboutImage", fields: [aboutId], references: [id], onDelete: Cascade)
+  id            String  @id @default(cuid())
+  url           String
+  alt           String
+  skillId       String? @unique
+  skill         Skill?  @relation("SkillImage", fields: [skillId], references: [id], onDelete: Cascade)
+  aboutId       String? @unique
+  about         About?  @relation("AboutImage", fields: [aboutId], references: [id], onDelete: Cascade)
+  avatarRectoId String? @unique
+  avatarRecto   Avatar? @relation("AvatarRectoImage", fields: [avatarRectoId], references: [id], onDelete: Cascade)
+  avatarVersoId String? @unique
+  avatarVerso   Avatar? @relation("AvatarVersoImage", fields: [avatarVersoId], references: [id], onDelete: Cascade)
 }
 
 model Skill {
@@ -46,10 +50,28 @@ model Section {
 }
 
 model About {
-  id            String @id @default(uuid())
-  text          String
-  order         Int
-  arrowPosition String
-  position      String
-  image         Image? @relation("AboutImage")
+  id    String @id @default(uuid())
+  text  String
+  order Int
+  image Image? @relation("AboutImage")
+}
+
+enum ArrowBullPosition {
+  topLeft
+  topRight
+  bottomLeft
+  bottomRight
+  middleTopLeft
+  middleTopRight
+  middleBottomLeft
+  middleBottomRight
+}
+
+model Avatar {
+  id                String            @id @default(uuid())
+  page              String            @unique
+  text              String
+  recto             Image?            @relation("AvatarRectoImage")
+  verso             Image?            @relation("AvatarVersoImage")
+  arrowBullPosition ArrowBullPosition
 }
