@@ -5,8 +5,7 @@ import { IoLogoGithub, IoMailOutline } from "react-icons/io5";
 import { RxDownload } from "react-icons/rx";
 import { RoughNotation, RoughNotationGroup, types } from "react-rough-notation";
 
-import { AvatarProps } from "@/app/services/avatar.actions";
-import { NotationType, SectionType } from "@/app/types/prismaType";
+import { FullAvatar, NotationType, SectionType } from "@/app/types/prismaType";
 import { Avatar } from "../avatar";
 import { Button } from "../buttons/buttons";
 import { Container, Content } from "../containers";
@@ -105,8 +104,8 @@ export function Hero({
   section,
   textsNotation,
 }: {
-  avatar: AvatarProps;
-  section: SectionType;
+  avatar: FullAvatar | null;
+  section: SectionType | null;
   textsNotation?: NotationType[];
 }) {
   return (
@@ -114,14 +113,14 @@ export function Hero({
       <SectionMarker rotate={0} />
       <Container>
         <Content>
-          <h1 className="h1">{section.title}</h1>
+          <h1 className="h1">{section && section.title}</h1>
           {textsNotation ? (
             <>
               <UnderlineText textsNotation={textsNotation} />
               <Buttons />
             </>
           ) : (
-            <p className="p"> {section.text} </p>
+            <p className="p"> {section && section.text} </p>
           )}
         </Content>
 
