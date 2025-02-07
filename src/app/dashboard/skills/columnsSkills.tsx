@@ -6,13 +6,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export const columnsSkills = ({
   handleShowFormForUpdate,
@@ -60,6 +60,20 @@ export const columnsSkills = ({
     ),
   },
   {
+    accessorKey: "url",
+    header: () => <div className="text-left text-primary font-bold">URL</div>,
+    cell: ({ row }) => {
+      const url = row.original.image?.url;
+      return (
+        <div className="w-[14rem] overflow-hidden text-ellipsis whitespace-nowrap">
+          <Link href={(url && url) || ""} target="_blank">
+            {url}
+          </Link>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "image", // Cast nécessaire pour TypeScript
     header: () => <div className="text-left text-primary font-bold">Image</div>,
     cell: ({ row }) => {
@@ -92,7 +106,7 @@ export const columnsSkills = ({
     id: "actions",
     enableHiding: false,
     header: () => (
-      <div className="text-center text-primary font-bold">Action</div>
+      <div className="text-center text-primary font-bold">Actions</div>
     ),
     cell: ({ row }) => {
       const skill = row.original;
@@ -108,19 +122,26 @@ export const columnsSkills = ({
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => handleShowFormForUpdate(skill.id)}
+            >
+              Modifier
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => navigator.clipboard.writeText(skill.id)}
             >
               Copy ID
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => handleShowFormForUpdate(skill.id)}
+              onClick={() =>
+                navigator.clipboard.writeText(skill?.image?.url || "")
+              }
             >
-              Modifier
+              Copy URL
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

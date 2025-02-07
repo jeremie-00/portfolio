@@ -6,13 +6,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export const columnsAvatar = ({
   handleShowFormForUpdate,
@@ -75,7 +75,20 @@ export const columnsAvatar = ({
     },
     cell: ({ row }) => <div className="ml-2">{row.getValue("text")}</div>,
   },
-
+  {
+    accessorKey: "urlRecto",
+    header: () => <div className="text-left text-primary font-bold">URL</div>,
+    cell: ({ row }) => {
+      const url = row.original.recto?.url;
+      return (
+        <div className="w-[14rem] overflow-hidden text-ellipsis whitespace-nowrap">
+          <Link href={(url && url) || ""} target="_blank">
+            {url}
+          </Link>
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "recto", // Cast nécessaire pour TypeScript
     header: () => (
@@ -105,6 +118,20 @@ export const columnsAvatar = ({
     cell: ({ row }) => {
       const value = row.original.recto?.alt;
       return <div className="text-left">{String(value)}</div>;
+    },
+  },
+  {
+    accessorKey: "urlVerso",
+    header: () => <div className="text-left text-primary font-bold">URL</div>,
+    cell: ({ row }) => {
+      const url = row.original.verso?.url;
+      return (
+        <div className="w-[14rem] overflow-hidden text-ellipsis whitespace-nowrap">
+          <Link href={(url && url) || ""} target="_blank">
+            {url}
+          </Link>
+        </div>
+      );
     },
   },
   {
@@ -154,7 +181,7 @@ export const columnsAvatar = ({
     id: "actions",
     enableHiding: false,
     header: () => (
-      <div className="text-center text-primary font-bold">Action</div>
+      <div className="text-center text-primary font-bold">Actions</div>
     ),
     cell: ({ row }) => {
       const avatar = row.original;
@@ -170,19 +197,34 @@ export const columnsAvatar = ({
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => handleShowFormForUpdate(avatar.id)}
+            >
+              Modifier
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => navigator.clipboard.writeText(avatar.id)}
             >
               Copy ID
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => handleShowFormForUpdate(avatar.id)}
+              onClick={() =>
+                navigator.clipboard.writeText(avatar.recto?.url || "")
+              }
             >
-              Modifier
+              Copy URL Recto
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() =>
+                navigator.clipboard.writeText(avatar.verso?.url || "")
+              }
+            >
+              Copy URL verso
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -6,7 +6,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -103,7 +102,7 @@ export const columnsSections = ({
     id: "actions",
     enableHiding: false,
     header: () => (
-      <div className="text-center text-primary font-bold">Action</div>
+      <div className="text-center text-primary font-bold">Actions</div>
     ),
     cell: ({ row }) => {
       const skill = row.original;
@@ -119,19 +118,18 @@ export const columnsSections = ({
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => navigator.clipboard.writeText(skill.id)}
-            >
-              Copy ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => handleShowFormForUpdate(skill.id)}
             >
               Modifier
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => navigator.clipboard.writeText(skill.id)}
+            >
+              Copy ID
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
