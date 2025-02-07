@@ -12,7 +12,8 @@ export default function TableAbout() {
   const { setData, setShowForm, setOrder, remove, handleShowFormForUpdate } =
     useAboutActions();
   return (
-    <div className="relative w-full h-full">
+    <section className="relative w-full h-full">
+      <h2 className="h2">A propos</h2>
       <TableData<FullAbout>
         filter="text"
         loading={loading}
@@ -27,6 +28,6 @@ export default function TableAbout() {
       />
 
       <FormAbout />
-    </div>
+    </section>
   );
 }

@@ -17,7 +17,8 @@ export default function TableNotation() {
     handleShowFormForUpdate,
   } = useNotationActions();
   return (
-    <div className="relative w-full h-full">
+    <section className="relative w-full h-full">
+      <h2 className="h2">Texte avec notation</h2>
       <TableData<NotationType>
         filter="order"
         loading={loading}
@@ -32,6 +33,6 @@ export default function TableNotation() {
       />
 
       <FormNotations />
-    </div>
+    </section>
   );
 }

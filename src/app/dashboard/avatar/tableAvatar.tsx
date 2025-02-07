@@ -12,7 +12,8 @@ export default function TableAvatar() {
   const { setData, setShowForm, remove, handleShowFormForUpdate } =
     useAvatarActions();
   return (
-    <div className="relative w-full h-full">
+    <section className="relative w-full h-full">
+      <h2 className="h2">Avatar</h2>
       <TableData<FullAvatar>
         filter="text"
         loading={loading}
@@ -25,6 +26,6 @@ export default function TableAvatar() {
       />
 
       <FormAvatar />
-    </div>
+    </section>
   );
 }

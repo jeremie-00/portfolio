@@ -12,7 +12,8 @@ export default function TableSections() {
   const { setData, setShowForm, remove, handleShowFormForUpdate } =
     useSectionActions();
   return (
-    <div className="relative w-full h-full">
+    <section className="relative w-full h-full">
+      <h2 className="h2">Titre et texte des sections</h2>
       <TableData<SectionType>
         filter="title"
         loading={loading}
@@ -25,6 +26,6 @@ export default function TableSections() {
       />
 
       <FormTitles />
-    </div>
+    </section>
   );
 }

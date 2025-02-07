@@ -12,7 +12,8 @@ export default function TableSkill() {
   const { setData, setShowForm, remove, handleShowFormForUpdate } =
     useSkillActions();
   return (
-    <div className="relative w-full h-full">
+    <section className="relative w-full h-full">
+      <h2 className="h2">Compétences</h2>
       <TableData<FullSkill>
         filter="title"
         loading={loading}
@@ -25,6 +26,6 @@ export default function TableSkill() {
       />
 
       <FormSkills />
-    </div>
+    </section>
   );
 }
