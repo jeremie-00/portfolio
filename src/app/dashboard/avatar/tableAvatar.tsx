@@ -1,7 +1,7 @@
 "use client";
 
 import { FullAvatar } from "@/app/types/prismaType";
-import { TableData } from "../tableData";
+import { TableData } from "../../components/tableData";
 
 import { columnsAvatar } from "./columnsAvatar";
 import { FormAvatar } from "./formAvatar";

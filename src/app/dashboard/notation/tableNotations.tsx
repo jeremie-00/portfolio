@@ -1,7 +1,7 @@
 "use client";
 
 import { NotationType } from "@/app/types/prismaType";
-import { TableData } from "../tableData";
+import { TableData } from "../../components/tableData";
 
 import { columnsNotation } from "./columnsNotation";
 import FormNotations from "./formNotations";
@@ -26,8 +26,8 @@ export default function TableNotation() {
         setData={setData}
         showForm={showForm}
         setShowForm={setShowForm}
-        lengthTexts={lengthTexts}
-        setLengthTexts={setLengthTexts}
+        lengthData={lengthTexts}
+        setLengthData={setLengthTexts}
         remove={remove}
         columnsData={columnsNotation({ handleShowFormForUpdate })}
       />

@@ -1,7 +1,7 @@
 "use client";
 
 import { SectionType } from "@/app/types/prismaType";
-import { TableData } from "../tableData";
+import { TableData } from "../../components/tableData";
 
 import { columnsSections } from "./columnsSections";
 import FormTitles from "./formSections";

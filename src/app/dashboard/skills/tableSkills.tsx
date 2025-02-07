@@ -1,7 +1,7 @@
 "use client";
 
 import { FullSkill } from "@/app/types/prismaType";
-import { TableData } from "../tableData";
+import { TableData } from "../../components/tableData";
 
 import { columnsSkills } from "./columnsSkills";
 import { FormSkills } from "./formSkills";
