@@ -1,16 +1,17 @@
 "use client";
-import { NavLinksProps, getNavLinks } from "@/app/services/navigation.actions";
+import { getNavLinksExceptLegal } from "@/app/services/navigation.actions";
+import { FullLink } from "@/app/types/prismaType";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "../buttons/buttons";
 
 export default function Navigation() {
   const pathname = usePathname();
-  const [navLinks, setNavLinks] = useState<NavLinksProps[]>([]);
+  const [navLinks, setNavLinks] = useState<FullLink[]>([]);
 
   useEffect(() => {
     const fetchNavLinks = async () => {
-      const data = await getNavLinks();
+      const data = await getNavLinksExceptLegal();
       setNavLinks(data);
     };
     fetchNavLinks();

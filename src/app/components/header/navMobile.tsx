@@ -1,5 +1,6 @@
 "use client";
-import { getNavLinks, NavLinksProps } from "@/app/services/navigation.actions";
+import { getNavLinksExceptLegal } from "@/app/services/navigation.actions";
+import { FullLink } from "@/app/types/prismaType";
 import { AnimatePresence, motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -10,11 +11,11 @@ import ToggleTheme from "../buttons/toggleTheme";
 
 export default function NavMobile() {
   const pathname = usePathname();
-  const [navLinks, setNavLinks] = useState<NavLinksProps[]>([]);
+  const [navLinks, setNavLinks] = useState<FullLink[]>([]);
 
   useEffect(() => {
     const fetchNavLinks = async () => {
-      const data = await getNavLinks();
+      const data = await getNavLinksExceptLegal();
       setNavLinks(data);
     };
     fetchNavLinks();
