@@ -52,36 +52,39 @@ export default function Dashboard() {
       <section className="section flex-col items-center justify-center">
         <Container>
           {/* Bouton de déconnexion */}
-          <Button
-            theme="primary"
-            size="sm"
-            onClick={handleLogout}
-            aria-label="Deconnexion"
-          >
-            {loading ? (
-              <LuLoaderCircle size={28} className="animate-spin" />
-            ) : (
-              <>
-                <IoLogOutOutline size={28} />
-                <span>Deconnexion</span>
-              </>
-            )}
-          </Button>
-          <Button
-            theme="delete"
-            size="sm"
-            onClick={handleDeleteRevokedToken}
-            aria-label="Supprimer le jeton révoqué"
-          >
-            {loadingDelete ? (
-              <LuLoaderCircle size={28} className="animate-spin" />
-            ) : (
-              <>
-                <IoTrashBinSharp size={28} />
-                <span>Token révoqué</span>
-              </>
-            )}
-          </Button>
+          <div className="flex items-center justify-center  gap-6">
+            <Button
+              theme="primary"
+              size="sm"
+              onClick={handleLogout}
+              aria-label="Deconnexion"
+            >
+              {loading ? (
+                <LuLoaderCircle size={28} className="animate-spin" />
+              ) : (
+                <>
+                  <IoLogOutOutline size={28} />
+                  <span>Deconnexion</span>
+                </>
+              )}
+            </Button>
+            <Button
+              theme="delete"
+              size="sm"
+              onClick={handleDeleteRevokedToken}
+              aria-label="Supprimer le jeton révoqué"
+            >
+              {loadingDelete ? (
+                <LuLoaderCircle size={28} className="animate-spin" />
+              ) : (
+                <>
+                  <IoTrashBinSharp size={28} />
+                  <span>Token révoqué</span>
+                </>
+              )}
+            </Button>
+          </div>
+
           <h1 className="h1">Dashboard</h1>
           <p className="p">Hello {session?.user?.name}</p>
           <SkillProvider>
