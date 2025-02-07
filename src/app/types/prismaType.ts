@@ -28,6 +28,8 @@ export type FullAvatar = Prisma.AvatarGetPayload<{
   };
 }>;
 
+export type FullLink = Prisma.LinkGetPayload<true>;
+
 export type ImageType = Prisma.ImageGetPayload<true>;
 
 export type NotationType = Prisma.TextNotationGetPayload<true>;
