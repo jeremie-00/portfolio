@@ -26,7 +26,7 @@ export type AboutContextType = {
     updated: boolean;
     selectedId: string;
     formData: FullAbout;
-    order: number;
+    lengthAbout: number;
   };
   actions: {
     setLoading: Dispatch<SetStateAction<boolean>>;
@@ -35,7 +35,7 @@ export type AboutContextType = {
     setUpdated: Dispatch<SetStateAction<boolean>>;
     setSelectedId: Dispatch<SetStateAction<string>>;
     setFormData: Dispatch<SetStateAction<FullAbout>>;
-    setOrder: Dispatch<SetStateAction<number>>;
+    setLengthAbout: Dispatch<SetStateAction<number>>;
     handleShowFormForUpdate: (id: string) => void;
     refetch: () => void;
     create: (formData: FormData) => Promise<Result>;
@@ -72,7 +72,7 @@ export const AboutProvider = ({ children }: { children: ReactNode }) => {
   const [showForm, setShowForm] = useState(false);
   const [updated, setUpdated] = useState(false);
   const [selectedId, setSelectedId] = useState("");
-  const [order, setOrder] = useState(0);
+  const [lengthAbout, setLengthAbout] = useState(0);
 
   const initialFormData: FullAbout = {
     id: "",
@@ -105,7 +105,7 @@ export const AboutProvider = ({ children }: { children: ReactNode }) => {
       setLoading(true);
       const abouts = await getAbout();
       setData(abouts);
-      setOrder(abouts.length + 1);
+      setLengthAbout(abouts.length + 1);
     } catch (error) {
       console.error("Error fetching abouts:", error);
     } finally {
@@ -118,7 +118,15 @@ export const AboutProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const contextData: AboutContextType = {
-    state: { loading, data, showForm, updated, selectedId, formData, order },
+    state: {
+      loading,
+      data,
+      showForm,
+      updated,
+      selectedId,
+      formData,
+      lengthAbout,
+    },
     actions: {
       setLoading,
       setData,
@@ -126,7 +134,7 @@ export const AboutProvider = ({ children }: { children: ReactNode }) => {
       setUpdated,
       setSelectedId,
       setFormData,
-      setOrder,
+      setLengthAbout,
       handleShowFormForUpdate,
       refetch: fetchData,
       create: createAbout,
