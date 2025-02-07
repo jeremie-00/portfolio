@@ -9,6 +9,7 @@
     "lint": "next lint",
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "seed": "tsx prisma/seed-section.ts",
+    "seed-avatars": "tsx prisma/seeds/seed-avatars.ts",
     "seed-skills": "tsx prisma/seeds/seed-skills.ts",
     "seed-notation": "tsx prisma/seeds/seed-notation.ts",
     "seed-sections": "tsx prisma/seeds/seed-section.ts"
