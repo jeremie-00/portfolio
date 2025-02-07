@@ -15,9 +15,23 @@ export type FullSkill = Prisma.SkillGetPayload<{
   };
 }>;
 
+export type FullAbout = Prisma.AboutGetPayload<{
+  include: {
+    image: true;
+  };
+}>;
+
+export type FullAvatar = Prisma.AvatarGetPayload<{
+  include: {
+    recto: true;
+    verso: true;
+  };
+}>;
+
 export type ImageType = Prisma.ImageGetPayload<true>;
 
 export type NotationType = Prisma.TextNotationGetPayload<true>;
+
 export type SectionType = Prisma.SectionGetPayload<true>;
 
 /* export type TitleType = Prisma.TitlePageGetPayload<true>;
