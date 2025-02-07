@@ -11,6 +11,10 @@ import {
   createRevokedToken,
   deleteOldRevokedTokens,
 } from "../services/revokedToken.actions";
+import { AboutProvider } from "./about/providersAbout";
+import TableAbout from "./about/tableAbout";
+import { AvatarProvider } from "./avatar/providersAvatar";
+import TableAvatar from "./avatar/tableAvatar";
 import { NotationProvider } from "./notation/providersNotation";
 import TableNotation from "./notation/tableNotations";
 import { SectionProvider } from "./sections/providersSections";
@@ -89,6 +93,12 @@ export default function Dashboard() {
           <SectionProvider>
             <TableSections />
           </SectionProvider>
+          <AboutProvider>
+            <TableAbout />
+          </AboutProvider>
+          <AvatarProvider>
+            <TableAvatar />
+          </AvatarProvider>
         </Container>
       </section>
     </>
