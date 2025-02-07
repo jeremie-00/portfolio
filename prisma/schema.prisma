@@ -75,3 +75,11 @@ model Avatar {
   verso             Image?            @relation("AvatarVersoImage")
   arrowBullPosition ArrowBullPosition
 }
+
+model Link {
+  id    String @id @default(uuid())
+  href  String
+  title String
+  page  String @unique
+  order Int
+}
