@@ -15,6 +15,8 @@ import { AboutProvider } from "./about/providersAbout";
 import TableAbout from "./about/tableAbout";
 import { AvatarProvider } from "./avatar/providersAvatar";
 import TableAvatar from "./avatar/tableAvatar";
+import { NavigationProvider } from "./navigation/providersNavigation";
+import TableNavigation from "./navigation/tableNavigation";
 import { NotationProvider } from "./notation/providersNotation";
 import TableNotation from "./notation/tableNotations";
 import { SectionProvider } from "./sections/providersSections";
@@ -102,6 +104,9 @@ export default function Dashboard() {
           <AvatarProvider>
             <TableAvatar />
           </AvatarProvider>
+          <NavigationProvider>
+            <TableNavigation />
+          </NavigationProvider>
         </Container>
       </section>
     </>
