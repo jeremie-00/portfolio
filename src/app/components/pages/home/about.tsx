@@ -2,16 +2,15 @@
 import { Container, Content } from "../../containers";
 
 import { useIsMobile } from "@/app/hooks/useMobile";
-import { AboutProps } from "@/app/services/about.actions";
-import { SectionType } from "@/app/types/prismaType";
+import { FullAbout, SectionType } from "@/app/types/prismaType";
 import { ChatBull, ChatBullProps } from "../../ChatBull";
 
 export default function About({
   section,
-  about,
+  abouts,
 }: {
   section: SectionType;
-  about: AboutProps;
+  abouts: FullAbout[];
 }) {
   const isMobile = useIsMobile();
   const positionArrow: ChatBullProps["arrowPosition"][] = isMobile
@@ -24,10 +23,10 @@ export default function About({
         <h2 className="h2">{section.title}</h2>
         <div className="bg-image-svg rounded-xl">
           <Content className="md:p-16 p-4 rounded-xl border-primary/50 border bg-background/20">
-            {about.texts.map((text, index) => (
+            {abouts.map((about, index) => (
               <ChatBull
                 key={index}
-                text={text}
+                text={about.text}
                 image={about.image}
                 arrowPosition={
                   index % 2 === 0 ? positionArrow[0] : positionArrow[1]
