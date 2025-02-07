@@ -74,7 +74,15 @@ export const SkillProvider = ({ children }: { children: ReactNode }) => {
   const initialFormData: FullSkill = {
     id: "",
     title: "",
-    image: { id: "", url: "", alt: "", skillId: "" },
+    image: {
+      id: "",
+      url: "",
+      alt: "",
+      skillId: "",
+      aboutId: null,
+      avatarRectoId: null,
+      avatarVersoId: null,
+    },
   };
   const [formData, setFormData] = useState<FullSkill>(initialFormData);
 

@@ -44,6 +44,9 @@ export function FormSkills() {
         url: "",
         alt: "",
         skillId: "",
+        aboutId: null,
+        avatarRectoId: null,
+        avatarVersoId: null,
       },
     });
     setSelectedId("");
