@@ -43,7 +43,7 @@ export const Button = (props: ButtonProps) => {
       : theme === "hover"
       ? "border-none bg-primary text-black hover:scale-105 hover:bg-primary/80"
       : theme === "icon"
-      ? "p-2 hover:border-primary"
+      ? "p-2 hover:border-primary border-foreground/40"
       : theme === "underline"
       ? "lg:text-[1.25rem] text-[1rem] border-none shadow-none dark:shadow-none w-fit hover:text-primary after:content-[''] after:bg-primary after:transition-scale after:duration-300 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:origin-center after:scale-0 "
       : theme === "highlight"
