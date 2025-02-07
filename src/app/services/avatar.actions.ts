@@ -9,9 +9,9 @@ import { FullAvatar } from "../types/prismaType";
 import { deleteSchema } from "../types/zodType";
 import { imageDelete, imageUpload } from "./image.actions";
 
-const uploadImage = async (image: File, folder: string) => {
+const uploadImage = async (title: string, image: File, folder: string) => {
   return await imageUpload({
-    title: "profil-about",
+    title: title,
     file: image,
     folder: folder,
   });
@@ -85,10 +85,14 @@ export const createAvatar = authActionClient
       }
 
       const urlRecto =
-        recto && recto?.size > 0 && (await uploadImage(recto, "avatar"));
+        recto &&
+        recto?.size > 0 &&
+        (await uploadImage(`avatar-recto ${page}`, recto, "avatar"));
 
       const urlVerso =
-        verso && verso?.size > 0 && (await uploadImage(verso, "avatar"));
+        verso &&
+        verso?.size > 0 &&
+        (await uploadImage(`avatar-verso ${page}`, verso, "avatar"));
 
       await prisma.avatar.create({
         data: {
@@ -154,10 +158,14 @@ export const updateAvatar = authActionClient
       }
 
       const urlRecto =
-        recto && recto?.size > 0 && (await uploadImage(recto, "avatar"));
+        recto &&
+        recto?.size > 0 &&
+        (await uploadImage(`avatar-recto ${page}`, recto, "avatar"));
 
       const urlVerso =
-        verso && verso?.size > 0 && (await uploadImage(verso, "avatar"));
+        verso &&
+        verso?.size > 0 &&
+        (await uploadImage(`avatar-verso ${page}`, verso, "avatar"));
 
       if (existingAvatar?.recto && urlRecto)
         await imageDelete({ image: existingAvatar.recto });
