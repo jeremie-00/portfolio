@@ -1,5 +1,7 @@
 "use server";
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "../lib/authOptions";
 import prisma from "../lib/prisma";
 import { Result } from "../types/globalType";
 
@@ -29,6 +31,31 @@ export const createRevokedToken = async (token: string): Promise<void> => {
 };
 
 export const deleteOldRevokedTokens = async (): Promise<Result> => {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return {
+      data: {
+        success: false,
+        status: "error",
+        message: "Vous devez être connecté pour accéder à cette page.",
+      },
+    };
+  }
+
+  if (session.accessToken) {
+    const token = session.accessToken;
+    const isRevoked = await isRevokedToken(token);
+    if (isRevoked) {
+      return {
+        data: {
+          success: false,
+          status: "error",
+          message: "Veuillez vous reconnecter pour accéder à cette page.",
+        },
+      };
+    }
+  }
+
   const dateThreshold = new Date();
   dateThreshold.setDate(dateThreshold.getDate() - 31);
 
@@ -44,6 +71,7 @@ export const deleteOldRevokedTokens = async (): Promise<Result> => {
     if (result.count === 0) {
       return {
         data: {
+          success: false,
           status: "warn",
           message: "Aucun jeton révoqué a supprimé.",
         },
@@ -52,6 +80,7 @@ export const deleteOldRevokedTokens = async (): Promise<Result> => {
 
     return {
       data: {
+        success: true,
         status: "success",
         message: `${
           result.count > 1
@@ -63,6 +92,7 @@ export const deleteOldRevokedTokens = async (): Promise<Result> => {
   } catch {
     return {
       data: {
+        success: false,
         status: "error",
         message:
           "Erreur lors de la suppression des jetons révoqués vieux de plus de 30 jours",
