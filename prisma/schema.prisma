@@ -15,7 +15,7 @@ model RevokedToken {
 
 model Image {
   id            String  @id @default(cuid())
-  url           String
+  url           String  @unique
   alt           String
   skillId       String? @unique
   skill         Skill?  @relation("SkillImage", fields: [skillId], references: [id], onDelete: Cascade)
@@ -25,12 +25,17 @@ model Image {
   avatarRecto   Avatar? @relation("AvatarRectoImage", fields: [avatarRectoId], references: [id], onDelete: Cascade)
   avatarVersoId String? @unique
   avatarVerso   Avatar? @relation("AvatarVersoImage", fields: [avatarVersoId], references: [id], onDelete: Cascade)
+  coverId       String? @unique
+  cover         Projet? @relation("CoverImage", fields: [coverId], references: [id], onDelete: Cascade)
+  mediasId      String?
+  medias        Projet? @relation("MediasImage", fields: [mediasId], references: [id], onDelete: Cascade)
 }
 
 model Skill {
-  id    String @id @default(uuid())
-  title String
-  image Image? @relation("SkillImage")
+  id     String   @id @default(uuid())
+  title  String
+  image  Image?   @relation("SkillImage")
+  projet Projet[]
 }
 
 model TextNotation {
@@ -77,9 +82,23 @@ model Avatar {
 }
 
 model Link {
-  id    String @id @default(uuid())
-  href  String
-  title String
-  page  String @unique
-  order Int
+  id       String  @id @default(uuid())
+  href     String
+  title    String
+  page     String  @unique
+  inNav    Boolean @default(false)
+  order    Int
+  Projet   Projet? @relation(fields: [projetId], references: [id], onDelete: Cascade)
+  projetId String?
+}
+
+model Projet {
+  id        String  @id @default(uuid())
+  title     String
+  shortDesc String?
+  longDesc  String?
+  skills    Skill[]
+  links     Link[]
+  cover     Image?  @relation("CoverImage")
+  medias    Image[] @relation("MediasImage")
 }
