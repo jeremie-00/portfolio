@@ -4,8 +4,9 @@ export type ValidationErrors = {
   };
 };
 
-export type Result = {
+export type Result<T> = {
   data: {
+    state: T;
     success: boolean;
     status: "warn" | "error" | "success" | "info";
     message: string;

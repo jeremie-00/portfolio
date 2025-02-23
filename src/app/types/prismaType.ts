@@ -27,6 +27,36 @@ export type FullAvatar = Prisma.AvatarGetPayload<{
     verso: true;
   };
 }>;
+export type FullProjet = Prisma.ProjetGetPayload<{
+  include: {
+    skills: true;
+    links: true;
+    cover: true;
+    medias: true;
+  };
+}>;
+
+export type ProjetData = {
+  id: string;
+  title: string;
+  shortDesc: string;
+  longDesc: string;
+  cover?: File;
+  medias: File[];
+  skills: string[];
+  links: {
+    id?: string;
+    url: string;
+    title: string;
+    inNav?: string;
+    iconId?: string;
+    isAdmin?: string;
+    type?: string;
+    target?: string;
+    projectId?: string;
+    order?: number;
+  }[];
+};
 
 export type FullLink = Prisma.LinkGetPayload<true>;
 
