@@ -2,12 +2,15 @@ import { ThemeProvider } from "@/app/providers/themeProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Header from "./components/header/header";
 import Footer from "./components/pages/footer";
-import SessionWrapper from "./components/sessionWrapper";
+import SessionWrapper from "./providers/sessionWrapper";
 import { ToastNotification } from "./components/toast";
 import { StairTransition } from "./components/transitionPages/stairTransition";
 import { Transitions } from "./components/transitionPages/transitions";
+
+import Header from "./components/header/header";
+import { ParticlesBackground } from "./components/particles";
+import { QueryProvider } from "./providers/queryProvider";
 import "./globals.css";
 import { ParallaxProviders } from "./providers/parallaxProvider";
 import { ParticlesProvider } from "./providers/particlesProvider";
@@ -89,16 +92,21 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <ParticlesProvider>
-              <Header />
-              <main className="flex min-h-svh flex-col items-center">
-                <StairTransition />
-                <Transitions>
-                  <ParallaxProviders>{children}</ParallaxProviders>
-                  <SpeedInsights />
-                </Transitions>
-              </main>
-              <ToastNotification />
-              <Footer />
+              <QueryProvider>
+                <Header />
+                <main className="flex min-h-svh flex-col items-center">
+                  <StairTransition />
+                  <Transitions>
+                    <ParallaxProviders>
+                      <ParticlesBackground />
+                      {children}
+                    </ParallaxProviders>
+                    <SpeedInsights />
+                  </Transitions>
+                </main>
+                <ToastNotification />
+                <Footer />
+              </QueryProvider>
             </ParticlesProvider>
           </ThemeProvider>
         </body>
