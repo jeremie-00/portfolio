@@ -26,69 +26,6 @@ export const getAboutById = async (id: string) => {
   });
 };
 
-const aboutSchemaCreated = z.object({
-  order: z.number(),
-  text: z.string().nonempty({ message: "Vous devez fournir un texte" }),
-  images: z.instanceof(File).optional(),
-  //images: z.string().optional(),
-});
-
-export const createdAbout = authActionClient
-  .schema(aboutSchemaCreated)
-  .action(async ({ parsedInput: { ...datas } }) => {
-    try {
-      const { order, text, images } = datas;
-      console.log(datas);
-      if (!order || !text) {
-        return {
-          success: false,
-          status: "warn",
-          message: `Vous devez fournir un ordre et un texte.`,
-        };
-      }
-
-      const url =
-        images && images?.size > 0
-          ? await imageUpload({
-              title: "profil-about",
-              file: images,
-              folder: "about",
-            })
-          : null;
-
-      const createdAbout = await prisma.about.create({
-        data: {
-          order: Number(order),
-          text: text,
-          image: url
-            ? {
-                create: {
-                  url: url,
-                  alt: "Memoji de profil de l'utilisateur",
-                },
-              }
-            : undefined,
-        },
-        include: {
-          image: true,
-        },
-      });
-
-      return {
-        state: createdAbout,
-        success: true,
-        status: "success",
-        message: `La bull a propos a été créée avec succès ! 🚀`,
-      };
-    } catch {
-      return {
-        success: false,
-        status: "error",
-        message: "Erreur lors de la création de la bull a propos.",
-      };
-    }
-  }) as (datas: FullAbout) => Promise<Result<FullAbout>>;
-
 const aboutSchemaCreate = zfd.formData({
   order: z.string().nonempty({ message: "Vous devez fournir un ordre" }),
   text: z.string().nonempty({ message: "Vous devez fournir un texte" }),

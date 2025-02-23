@@ -3,9 +3,8 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../lib/authOptions";
 import prisma from "../lib/prisma";
-import { Result } from "../types/globalType";
 
-export const isRevokedToken = async (token: string): Promise<boolean> => {
+export const isRevokedToken = async (token: string) => {
   try {
     const revokedToken = await prisma.revokedToken.findUnique({
       where: {
@@ -18,7 +17,7 @@ export const isRevokedToken = async (token: string): Promise<boolean> => {
   }
 };
 
-export const createRevokedToken = async (token: string): Promise<void> => {
+export const createRevokedToken = async (token: string) => {
   try {
     await prisma.revokedToken.create({
       data: {
@@ -30,7 +29,7 @@ export const createRevokedToken = async (token: string): Promise<void> => {
   }
 };
 
-export const deleteOldRevokedTokens = async (): Promise<Result> => {
+export const deleteOldRevokedTokens = async () => {
   const session = await getServerSession(authOptions);
   if (!session) {
     return {

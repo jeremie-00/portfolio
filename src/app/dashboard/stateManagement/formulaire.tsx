@@ -30,7 +30,6 @@ const formatProjetData = (formData: FormData, selectedSkills: Option[]) => {
   const linksFiltered = filteredLinks(formData);
   // Ajouter les liens au FormData sous format JSON
   formData.set("links", JSON.stringify(linksFiltered));
-  console.log(linksFiltered);
   // Ajouter les compétences sous forme d'IDs
   selectedSkills.forEach((skill) =>
     formData.append("skills", String(skill.id))
@@ -82,9 +81,9 @@ export default function Formulaire<T>({
       ? formatProjetData(newForm, selectedSkills)
       : newForm;
 
-    for (const [key, value] of formattedData.entries()) {
+    /*  for (const [key, value] of formattedData.entries()) {
       console.log(`${key}:`, value);
-    }
+    } */
 
     handleDataMutation(formattedData, formState.isUpdate);
     if (!formState.isUpdate)
