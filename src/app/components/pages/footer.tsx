@@ -1,23 +1,46 @@
 "use client";
-import { getNavLinksByPage } from "@/app/services/navigation.actions";
-import { FullLink } from "@/app/types/prismaType";
+import { useLinks } from "@/app/dashboard/link/useLinks";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { IoArrowUp } from "react-icons/io5";
 import { Button } from "../buttons/buttons";
 import SpeedParticles from "../buttons/speedParticles";
 
 export default function Footer() {
   const path = usePathname();
-  const [navLink, setNavLink] = useState<FullLink | null>();
-  useEffect(() => {
+  //const [navLink, setNavLink] = useState<FullLink | null>();
+
+  /* const { state } = useGenericState(LinkContext); */
+  //const { datas: links } = useLinkStore();
+  const { datas: links } = useLinks();
+  const legalLink = links.find((link) => link.page === "legal") || null;
+  /*   useEffect(() => {
+    const fetchNavLinks = async () => {
+      try {
+        const res = await fetch("/api/links");
+        if (!res.ok) throw new Error("Erreur lors du chargement des liens");
+
+        const links: FullLink[] = await res.json();
+        // Filtre pour récupérer le lien "legal" ou le premier lien dispo
+        const legalLink =
+          links.find((link) => link.page === "legal") || links[0] || null;
+
+        setNavLink(legalLink);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchNavLinks();
+  }, []); */
+
+  /* useEffect(() => {
     const fetchNavLinks = async () => {
       const linkLegal = await getNavLinksByPage("legal");
       setNavLink(linkLegal);
     };
     fetchNavLinks();
-  }, []);
+  }, []); */
   return (
     <footer className="relative w-full h-full flex flex-col items-center justify-center p-8 z-40 bg-background border-t border-primary  mt-24">
       <div className="w-full flex flex-1 items-center justify-center gap-8">
@@ -47,8 +70,8 @@ export default function Footer() {
           </li>
           <li className="flex max-md:flex-col items-center justify-center gap-4">
             <span className="relative">
-              <Button href={navLink?.href} theme="footer">
-                {navLink?.title}
+              <Button href={legalLink?.href} theme="footer">
+                {legalLink?.title}
               </Button>
             </span>
             <span className="text-foreground max-md:hidden">|</span>

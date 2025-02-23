@@ -12,13 +12,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Button } from "@/app/components/buttons/buttons";
-import { ColumnsProps } from "@/app/types/globalType";
 import { NotationType } from "@/app/types/prismaType";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useFormulaire } from "../../stateManagement/formulaireContext";
 
-export const columnsNotation = ({
-  handleShowFormForUpdate,
-}: ColumnsProps): ColumnDef<NotationType>[] => [
+export const columnsNotation = (): ColumnDef<NotationType>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -95,36 +93,40 @@ export const columnsNotation = ({
     id: "actions",
     enableHiding: false,
     header: () => <div className="font-extrabold text-primary">Actions</div>,
-    cell: ({ row }) => {
-      const textNotation = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className="flex items-center justify-center">
-              <Button theme="icon" size="sm" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => handleShowFormForUpdate(textNotation.id)}
-            >
-              Modifier
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => navigator.clipboard.writeText(textNotation.id)}
-            >
-              Copy ID
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ActionCell, // Utilisation du composant React
   },
 ];
+
+function ActionCell({ row }: { row: { original: NotationType } }) {
+  const data = row.original;
+  const { openFormulaire } = useFormulaire(); // Hook utilisé dans un composant React valide
+
+  const handleEdit = () => {
+    openFormulaire(data.id);
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <div className="flex items-center justify-center">
+          <Button theme="icon" size="sm" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal />
+          </Button>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem className="cursor-pointer" onClick={handleEdit}>
+          Modifier
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => navigator.clipboard.writeText(data.id)}
+        >
+          Copy ID
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}

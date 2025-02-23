@@ -1,5 +1,4 @@
 import { Button } from "@/app/components/buttons/buttons";
-import { ColumnsProps } from "@/app/types/globalType";
 import { SectionType } from "@/app/types/prismaType";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -11,10 +10,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { useFormulaire } from "../../stateManagement/formulaireContext";
 
-export const columnsSections = ({
-  handleShowFormForUpdate,
-}: ColumnsProps): ColumnDef<SectionType>[] => [
+export const columnsSections = (): ColumnDef<SectionType>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -101,39 +99,41 @@ export const columnsSections = ({
   {
     id: "actions",
     enableHiding: false,
-    header: () => (
-      <div className="text-center text-primary font-bold">Actions</div>
-    ),
-    cell: ({ row }) => {
-      const skill = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className="flex items-center justify-center">
-              <Button theme="icon" size="sm" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => handleShowFormForUpdate(skill.id)}
-            >
-              Modifier
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => navigator.clipboard.writeText(skill.id)}
-            >
-              Copy ID
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    header: () => <div className="font-extrabold text-primary">Actions</div>,
+    cell: ActionCell, // Utilisation du composant React
   },
 ];
+
+function ActionCell({ row }: { row: { original: SectionType } }) {
+  const data = row.original;
+  const { openFormulaire } = useFormulaire(); // Hook utilisé dans un composant React valide
+
+  const handleEdit = () => {
+    openFormulaire(data.id);
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <div className="flex items-center justify-center">
+          <Button theme="icon" size="sm" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal />
+          </Button>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem className="cursor-pointer" onClick={handleEdit}>
+          Modifier
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => navigator.clipboard.writeText(data.id)}
+        >
+          Copy ID
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}

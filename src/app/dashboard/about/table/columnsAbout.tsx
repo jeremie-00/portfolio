@@ -1,5 +1,4 @@
 import { Button } from "@/app/components/buttons/buttons";
-import { ColumnsProps } from "@/app/types/globalType";
 import { FullAbout } from "@/app/types/prismaType";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -13,10 +12,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useFormulaire } from "../../stateManagement/formulaireContext";
 
-export const columnsAbout = ({
-  handleShowFormForUpdate,
-}: ColumnsProps): ColumnDef<FullAbout>[] => [
+export const columnsAbout = (): ColumnDef<FullAbout>[] => [
   {
     id: "select",
     header: ({ table }) => (
@@ -92,20 +90,20 @@ export const columnsAbout = ({
 
   {
     accessorKey: "image", // Cast nécessaire pour TypeScript
-    header: () => <div className="text-left text-primary font-bold">Image</div>,
+    header: () => (
+      <div className="text-center text-primary font-bold">Image</div>
+    ),
     cell: ({ row }) => {
       const url = row.original.image?.url;
       const alt = row.original.image?.alt;
       return (
-        <div className="text-left">
-          <Image
-            src={url || "/default.svg"}
-            alt={alt || "default"}
-            width={50}
-            height={50}
-            className="inline-block w-8 h-8"
-          />
-        </div>
+        <Image
+          src={url || "/default.svg"}
+          alt={alt || "default"}
+          width={150}
+          height={150}
+          className="max-w-fit aspect-imgCardProjet object-contain w-24 h-24 place-self-center"
+        />
       );
     },
   },
@@ -122,48 +120,47 @@ export const columnsAbout = ({
   {
     id: "actions",
     enableHiding: false,
-    header: () => (
-      <div className="text-center text-primary font-bold">Actions</div>
-    ),
-    cell: ({ row }) => {
-      const about = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <div className="flex items-center justify-center">
-              <Button theme="icon" size="sm" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </div>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => handleShowFormForUpdate(about.id)}
-            >
-              Modifier
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => navigator.clipboard.writeText(about.id)}
-            >
-              Copy ID
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() =>
-                navigator.clipboard.writeText(about?.image?.url || "")
-              }
-            >
-              Copy URL
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    header: () => <div className="font-extrabold text-primary">Actions</div>,
+    cell: ActionCell, // Utilisation du composant React
   },
 ];
+
+function ActionCell({ row }: { row: { original: FullAbout } }) {
+  const data = row.original;
+  const { openFormulaire } = useFormulaire(); // Hook utilisé dans un composant React valide
+
+  const handleEdit = () => {
+    openFormulaire(data.id);
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <div className="flex items-center justify-center">
+          <Button theme="icon" size="sm" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal />
+          </Button>
+        </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem className="cursor-pointer" onClick={handleEdit}>
+          Modifier
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => navigator.clipboard.writeText(data.id)}
+        >
+          Copy ID
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => navigator.clipboard.writeText(data.image?.url || "")}
+        >
+          Copy URL
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}

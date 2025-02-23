@@ -1,11 +1,6 @@
 "use client";
 
 import { Button } from "@/app/components/buttons/buttons";
-import {
-  DeleteButton,
-  DialogDelete,
-} from "@/app/components/buttons/dialogDelete";
-import { showToast } from "@/app/components/toast";
 
 import {
   DropdownMenu,
@@ -35,50 +30,25 @@ import {
 } from "@tanstack/react-table";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { IoAdd } from "react-icons/io5";
-import useDeleted from "../../test/useDeleted";
-import { Result } from "../types/globalType";
+import { IoAdd, IoTrash } from "react-icons/io5";
+import { useFormulaire } from "./formulaireContext";
+import { useDeleteModal } from "./modalContext";
 
-interface TableProps<TData extends { id: string }> {
+interface TableProps<T extends { id: string }> {
   filter: string;
-  loading: boolean;
-  datas: TData[];
-  setData: React.Dispatch<React.SetStateAction<TData[]>>;
-  showForm: boolean;
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
-  lengthData?: number;
-  setLengthData?: React.Dispatch<React.SetStateAction<number>>;
-  remove: ({ id }: { id: string }) => Promise<Result<TData>>;
-  columnsData: ColumnDef<TData, unknown>[];
+  datas: T[];
+  isLoadingDatas: boolean;
+  remove: ({ id }: { id: string }) => void;
+  columnsData: ColumnDef<T, unknown>[];
 }
 
-export function TableData<TData extends { id: string }>({
+export function TableData<T extends { id: string }>({
   filter,
-  loading,
   datas,
-  setData,
-  showForm,
-  setShowForm,
-  lengthData,
-  setLengthData,
+  isLoadingDatas,
   remove,
   columnsData,
-}: TableProps<TData>) {
-  const handleShowForm = () => {
-    setShowForm(!showForm);
-  };
-
-  const {
-    loadingDelete,
-    setLoadingDelete,
-    showDialog,
-    deleteId,
-    setShowDialog,
-    setDeleteId,
-    confirmDelete,
-    cancelDelete,
-  } = useDeleted();
-
+}: TableProps<T>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -111,32 +81,16 @@ export function TableData<TData extends { id: string }>({
     (key) => datas[parseInt(key)].id
   );
 
+  const { openModal } = useDeleteModal();
+  const { openFormulaire } = useFormulaire();
+
   /* Fonction pour supprimer les lignes */
-  const handleDelete = async () => {
-    setLoadingDelete(true);
-    if (deleteId) {
-      const response = await Promise.all(
-        deleteId.map(async (id) => {
-          const res = await remove({ id });
-          return res.data;
-        })
-      );
-
-      response.map((res) => {
-        showToast(res.status, res.message);
-        if (res.success) {
-          setData((prevData) =>
-            prevData.filter((item) => !deleteId.includes(item.id))
-          );
-          setRowSelection({});
-        }
+  const handleDelete = async (selectedIds: string[]) => {
+    if (selectedIds.length > 0) {
+      selectedIds.map((id) => {
+        remove({ id });
       });
-
-      if (lengthData && setLengthData)
-        setLengthData(lengthData - response.length);
-      setLoadingDelete(false);
-      setShowDialog(false);
-      setDeleteId(null);
+      setRowSelection({});
     }
   };
 
@@ -156,26 +110,30 @@ export function TableData<TData extends { id: string }>({
           <Button
             theme="primary"
             size="sm"
-            onClick={handleShowForm}
-            disabled={loading}
+            onClick={() => openFormulaire()}
+            disabled={isLoadingDatas}
             ariaLabel="Ajouter"
           >
             <IoAdd size={24} />
           </Button>
 
-          <DeleteButton
-            loading={loadingDelete}
-            selectedIds={selectedIds}
-            confirmDelete={confirmDelete}
-          />
-
-          {showDialog && (
-            <DialogDelete
-              handleDelete={handleDelete}
-              cancelDelete={cancelDelete}
-              loading={loadingDelete}
-            />
-          )}
+          <Button
+            theme="delete"
+            size="sm"
+            onClick={() =>
+              openModal(
+                selectedIds.length > 1
+                  ? "Supprimer les éléments ?"
+                  : "Supprimer cet élément ?",
+                `Cette action est irréversible.`,
+                () => handleDelete(selectedIds)
+              )
+            }
+            disabled={selectedIds.length === 0}
+            ariaLabel="Supprimer"
+          >
+            <IoTrash size={24} />
+          </Button>
         </div>
 
         <DropdownMenu>
@@ -250,7 +208,7 @@ export function TableData<TData extends { id: string }>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  {loading ? "Chargement..." : "No results."}
+                  {isLoadingDatas ? "Chargement..." : "No results."}
                 </TableCell>
               </TableRow>
             )}
@@ -259,7 +217,7 @@ export function TableData<TData extends { id: string }>({
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
+          {table.getFilteredSelectedRowModel().rows.length} of
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
         <div className="flex space-x-2">

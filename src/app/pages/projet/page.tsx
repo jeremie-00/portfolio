@@ -1,15 +1,18 @@
+"use client";
 import { Hero } from "@/app/components/pages/hero";
 import { SectionProjetsCards } from "@/app/components/pages/projets/sectionProjetsCards";
-import { ParticlesBackground } from "@/app/components/particles";
-import { getAvatarByPage } from "@/app/services/avatar.actions";
-import { getSectionDetails } from "@/app/services/textHero.actions";
+import { useAvatar } from "@/app/dashboard/avatar/useAvatar";
+import { useSections } from "@/app/dashboard/sections/useSections";
 
-export default async function Projet() {
-  const avatar = await getAvatarByPage("projet");
-  const section = await getSectionDetails("projet");
+export default function Projet() {
+  const { datas: avatars } = useAvatar();
+  const avatar = avatars.find((avatar) => avatar.page === "projet") || null;
+  const { datas: sectionsHero } = useSections();
+  const section =
+    sectionsHero.find((section) => section.section === "projet") || null;
+
   return (
     <>
-      <ParticlesBackground />
       <Hero avatar={avatar} section={section} />
       <SectionProjetsCards />
     </>

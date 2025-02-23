@@ -99,7 +99,7 @@ export const ParticlesBackground = () => {
             type: "circle",
           },
           size: {
-            value: { min: 1, max: 3 },
+            value: { min: 0.5, max: 1.5 },
           },
         },
         detectRetina: true,

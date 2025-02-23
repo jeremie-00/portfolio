@@ -1,5 +1,7 @@
 "use client";
 import { useIsMobile } from "@/app/hooks/useMobile";
+
+import { useLinks } from "@/app/dashboard/link/useLinks";
 import { useEffect, useState } from "react";
 import ToggleTheme from "../buttons/toggleTheme";
 import Logo from "./logo";
@@ -11,6 +13,40 @@ export default function Header() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const isMobile = useIsMobile();
 
+  /* const { state } = useGenericState(LinkContext); */
+  const { datas: links } = useLinks();
+
+  /*   useEffect(() => {
+    setLinks(initialData); // Hydrate le store au chargement
+  }, [initialData, setLinks]); */
+  //const [navLinks, setNavLinks] = useState<FullLink[]>([]);
+
+  /* useEffect(() => {
+    const fetchNavLinks = async () => {
+      try {
+        const res = await fetch("/api/nav-links");
+        if (!res.ok) throw new Error("Erreur lors du chargement des liens");
+
+        const links: FullLink[] = await res.json();
+        // Filtre pour récupérer le lien "legal" ou le premier lien dispo
+
+        setNavLinks(links);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchNavLinks();
+  }, []); */
+
+  /*   useEffect(() => {
+    const fetchNavLinks = async () => {
+      const data = await getNavLinks();
+      setNavLinks(data);
+    };
+    fetchNavLinks();
+  }, []);
+ */
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -35,10 +71,10 @@ export default function Header() {
     >
       <Logo />
       {isMobile ? (
-        <NavMobile />
+        <NavMobile links={links} />
       ) : (
         <>
-          <Navigation />
+          <Navigation links={links} />
           <ToggleTheme />
         </>
       )}

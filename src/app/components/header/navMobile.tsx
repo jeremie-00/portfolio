@@ -1,5 +1,4 @@
 "use client";
-import { getNavLinksExceptLegal } from "@/app/services/navigation.actions";
 import { FullLink } from "@/app/types/prismaType";
 import { AnimatePresence, motion } from "motion/react";
 import { usePathname } from "next/navigation";
@@ -9,17 +8,8 @@ import { FiX } from "react-icons/fi";
 import { Button } from "../buttons/buttons";
 import ToggleTheme from "../buttons/toggleTheme";
 
-export default function NavMobile() {
+export default function NavMobile({ links }: { links: FullLink[] }) {
   const pathname = usePathname();
-  const [navLinks, setNavLinks] = useState<FullLink[]>([]);
-
-  useEffect(() => {
-    const fetchNavLinks = async () => {
-      const data = await getNavLinksExceptLegal();
-      setNavLinks(data);
-    };
-    fetchNavLinks();
-  }, []);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -103,21 +93,23 @@ export default function NavMobile() {
               </div>
               <nav>
                 <ul className="flex flex-col items-start gap-4">
-                  {navLinks.map((link) => {
+                  {links.map((link) => {
                     const isActive = pathname === link.href;
-                    return (
-                      <li key={link.title}>
-                        <Button
-                          onClick={toggleMenu}
-                          href={link.href}
-                          isActive={isActive}
-                          theme="highlight"
-                          ariaLabel={`Aller à la page ${link.title}`}
-                        >
-                          {link.title}
-                        </Button>
-                      </li>
-                    );
+                    if (link.inNav) {
+                      return (
+                        <li key={link.title}>
+                          <Button
+                            onClick={toggleMenu}
+                            href={link.href}
+                            isActive={isActive}
+                            theme="highlight"
+                            ariaLabel={`Aller à la page ${link.title}`}
+                          >
+                            {link.title}
+                          </Button>
+                        </li>
+                      );
+                    }
                   })}
                 </ul>
               </nav>

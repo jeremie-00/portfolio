@@ -1,16 +1,18 @@
-import { getSkills } from "@/app/services/skills.actions";
-import { getSectionDetails } from "@/app/services/textHero.actions";
+"use client";
+import { useSections } from "@/app/dashboard/sections/useSections";
+import { useSkills } from "@/app/dashboard/skills/useSkills";
+import { FullSkill } from "@/app/types/prismaType";
 import { Banner, Container, Content } from "../../containers";
 import { AnimateSkills } from "./animateSkills";
-import { FullSkill } from "@/app/types/prismaType";
 
 function shuffleArray(array: FullSkill[]) {
   return array.slice().sort(() => Math.random() - 0.5);
 }
 
-export default async function Skills() {
-  const section = await getSectionDetails("skill");
-  const skills = await getSkills();
+export default function Skills() {
+  const { datas: sections } = useSections();
+  const section = sections.find((section) => section.section === "skill");
+  const { datas: skills } = useSkills();
   const shuffledSkills = shuffleArray(skills);
 
   if (!section) return null;

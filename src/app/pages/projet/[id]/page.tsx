@@ -4,28 +4,17 @@ import { Button } from "@/app/components/buttons/buttons";
 import { SlideShow } from "@/app/components/carousel";
 import Collaps from "@/app/components/collaps";
 import { Container } from "@/app/components/containers";
-import { ParticlesBackground } from "@/app/components/particles";
+import { useProjets } from "@/app/dashboard/projet/useProjets";
 import { useIsMobile } from "@/app/hooks/useMobile";
-import { getProjetById, ProjetProps } from "@/app/services/projets.actions";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { IoGlobe, IoLogoGithub } from "react-icons/io5";
 
 export default function Page() {
   const isMobile = useIsMobile();
-  const [projet, setProjet] = useState<ProjetProps | null>(null);
   const params = useParams();
   const paramsId = Array.isArray(params?.id) ? params.id[0] : params?.id;
-
-  useEffect(() => {
-    const fetchProjet = async () => {
-      if (paramsId) {
-        const data = await getProjetById(paramsId);
-        setProjet(data);
-      }
-    };
-    fetchProjet();
-  }, [paramsId]);
+  const { datas: projets } = useProjets();
+  const projet = projets.find((projet) => projet.id === paramsId);
 
   if (!projet) {
     return (
@@ -37,7 +26,6 @@ export default function Page() {
 
   return (
     <>
-      <ParticlesBackground />
       <section className="section flex-col items-center justify-center gap-8">
         <Container>
           <div>
@@ -49,11 +37,11 @@ export default function Page() {
             {projet?.links?.map((link) => (
               <Button
                 key={link.id}
-                href={link.url}
+                href={link.href}
                 className="max-sm:w-full"
                 theme="primary"
                 size={isMobile ? "sm" : "md"}
-                target={link.target || "_blank"}
+                target="_blank"
               >
                 {link.title === "GitHub" ? (
                   <IoLogoGithub size={24} />
@@ -65,10 +53,8 @@ export default function Page() {
             ))}
           </div>
 
-          {projet && projet.image?.medias && projet.image.medias.length > 0 ? (
-            <SlideShow
-              pictures={projet?.image.medias.map((media) => media.url)}
-            />
+          {projet && projet.medias && projet.medias.length > 0 ? (
+            <SlideShow pictures={projet?.medias.map((media) => media.url)} />
           ) : (
             <p className="text-3xl text-center">
               Oups, pas la moindre image à l&apos;horizon ! 😔
@@ -81,7 +67,7 @@ export default function Page() {
             <Collaps title={"Skills"}>
               <ul>
                 {projet?.skills?.map((skill) => (
-                  <li key={skill}>{skill}</li>
+                  <li key={skill.id}>{skill.title}</li>
                 ))}
               </ul>
             </Collaps>

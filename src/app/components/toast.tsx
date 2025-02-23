@@ -33,13 +33,19 @@ export const ToastNotification = () => (
   />
 );
 
-export const handleResponseToast = (response: Result) => {
+export const handleResponseToast = <T,>(response: Result<T>) => {
   const { data, serverError, validationErrors } = response;
 
-  if (data) {
+  if (data && data.success) {
     const { status, message } = data;
     showToast(status, message);
     return true;
+  }
+
+  if (data && !data.success) {
+    const { status, message } = data;
+    showToast(status, message);
+    return false;
   }
 
   if (serverError) {
@@ -50,6 +56,7 @@ export const handleResponseToast = (response: Result) => {
   if (validationErrors) {
     const firstErrorKey = Object.keys(validationErrors)[0];
     const firstError = validationErrors[firstErrorKey]?._errors?.[0];
+
     if (firstError) {
       showToast("warn", firstError);
     }

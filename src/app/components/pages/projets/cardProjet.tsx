@@ -1,18 +1,18 @@
 "use client";
 
-import { ProjetProps } from "@/app/services/projets.actions";
+import { FullProjet } from "@/app/types/prismaType";
 import { useInView } from "motion/react";
 import Image from "next/image";
 import { useRef } from "react";
-import imageDefault from "../../../../../public/default.svg";
+import imageStateDefault from "../../../../../public/default.svg";
 import Badge from "../../badge";
 import { Button } from "../../buttons/buttons";
 import { Card } from "../../cards/cards";
 
-export function CardProjet({ projet }: { projet: ProjetProps }) {
+export function CardProjet({ projet }: { projet: FullProjet }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false });
-  const { id, title, shortDesc, skills, image } = projet;
+  const { id, title, shortDesc, skills, cover } = projet;
   return (
     <div ref={ref} className="relative">
       <div
@@ -29,8 +29,8 @@ export function CardProjet({ projet }: { projet: ProjetProps }) {
             </Button>
           </div>
           <Image
-            src={image ? image.cover?.url : imageDefault}
-            alt={image?.cover ? image.cover?.alt : "Image par défaut"}
+            src={cover ? cover.url : imageStateDefault}
+            alt={cover ? cover.alt : "Image par défaut"}
             width={400}
             height={400}
             className="aspect-imgCardProjet object-contain rounded-lg bg-section shadow-lg border border-border"
@@ -47,7 +47,7 @@ export function CardProjet({ projet }: { projet: ProjetProps }) {
 
           <div className="w-full flex flex-wrap content-start gap-2">
             {skills?.map((skill, i) => (
-              <Badge key={i} text={skill} />
+              <Badge key={i} text={skill.title} />
             ))}
           </div>
         </Card>

@@ -11,7 +11,7 @@ import { Button } from "../buttons/buttons";
 import { Container, Content } from "../containers";
 import SectionMarker from "../sectionMarker";
 
-const UnderlineText = ({
+export const UnderlineText = ({
   textsNotation,
 }: {
   textsNotation: NotationType[];
@@ -75,7 +75,7 @@ const buttonData = [
   },
 ];
 
-const Buttons = () => {
+export const Buttons = () => {
   const isMobile = useIsMobile();
 
   return (
