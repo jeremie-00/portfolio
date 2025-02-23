@@ -8,57 +8,6 @@ import { FullAbout } from "../types/prismaType";
 import { deleteSchema } from "../types/zodType";
 import { imageDelete, imageUpload } from "./image.actions";
 
-/* export interface AboutProps {
-  texts: string[];
-  image: string;
-} */
-/* const image = "/profile/profilepicApropos.png";
-
-const texts = [
-  `Ancien électrotechnicien reconverti en développeur web.`,
-  `Je suis passionné par la création d'interfaces modernes et performantes.`,
-  `Rigoureux, organisé et toujours enquête d'apprentissage.`,
-  `Je mets à profit mes compétences techniques pour répondre aux besoins des utilisateurs.`,
-]; */
-
-/* const dataAbout = [
-  {
-    id: "1",
-    text: "test 1",
-    order: 1,
-    arrowPosition: "",
-    position: "",
-    image: {
-      id: "1",
-      url: "/profile/profilepicApropos.png",
-      alt: "alt 1",
-      skillId: "",
-      aboutId: "1",
-    },
-  },
-  {
-    id: "2",
-    text: "test 2",
-    order: 2,
-    arrowPosition: "",
-    position: "",
-    image: {
-      id: "1",
-      url: "/profile/profilepicApropos.png",
-      alt: "alt 2",
-      skillId: "",
-      aboutId: "2",
-    },
-  },
-];
-
-export const getAbout = async (): Promise<FullAbout[]> => {
-  // Simulez un appel à une base de données
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(dataAbout), 100); // Simule une latence
-  });
-}; */
-
 export const getAbout = async (): Promise<FullAbout[]> => {
   return await prisma.about.findMany({
     orderBy: {
@@ -76,6 +25,69 @@ export const getAboutById = async (id: string) => {
     include: { image: true },
   });
 };
+
+const aboutSchemaCreated = z.object({
+  order: z.number(),
+  text: z.string().nonempty({ message: "Vous devez fournir un texte" }),
+  images: z.instanceof(File).optional(),
+  //images: z.string().optional(),
+});
+
+export const createdAbout = authActionClient
+  .schema(aboutSchemaCreated)
+  .action(async ({ parsedInput: { ...datas } }) => {
+    try {
+      const { order, text, images } = datas;
+      console.log(datas);
+      if (!order || !text) {
+        return {
+          success: false,
+          status: "warn",
+          message: `Vous devez fournir un ordre et un texte.`,
+        };
+      }
+
+      const url =
+        images && images?.size > 0
+          ? await imageUpload({
+              title: "profil-about",
+              file: images,
+              folder: "about",
+            })
+          : null;
+
+      const createdAbout = await prisma.about.create({
+        data: {
+          order: Number(order),
+          text: text,
+          image: url
+            ? {
+                create: {
+                  url: url,
+                  alt: "Memoji de profil de l'utilisateur",
+                },
+              }
+            : undefined,
+        },
+        include: {
+          image: true,
+        },
+      });
+
+      return {
+        state: createdAbout,
+        success: true,
+        status: "success",
+        message: `La bull a propos a été créée avec succès ! 🚀`,
+      };
+    } catch {
+      return {
+        success: false,
+        status: "error",
+        message: "Erreur lors de la création de la bull a propos.",
+      };
+    }
+  }) as (datas: FullAbout) => Promise<Result<FullAbout>>;
 
 const aboutSchemaCreate = zfd.formData({
   order: z.string().nonempty({ message: "Vous devez fournir un ordre" }),
@@ -106,7 +118,7 @@ export const createAbout = authActionClient
             })
           : null;
 
-      await prisma.about.create({
+      const createdAbout = await prisma.about.create({
         data: {
           order: Number(order),
           text: text,
@@ -119,9 +131,13 @@ export const createAbout = authActionClient
               }
             : undefined,
         },
+        include: {
+          image: true,
+        },
       });
 
       return {
+        state: createdAbout,
         success: true,
         status: "success",
         message: `La bull a propos a été créée avec succès ! 🚀`,
@@ -133,7 +149,7 @@ export const createAbout = authActionClient
         message: "Erreur lors de la création de la bull a propos.",
       };
     }
-  }) as (formData: FormData) => Promise<Result>;
+  }) as (formData: FormData) => Promise<Result<FullAbout>>;
 
 const AboutSchemaUpdate = zfd.formData({
   id: z.string().nonempty({ message: "Vous devez fournir un identifiant" }),
@@ -178,7 +194,7 @@ export const updateAbout = authActionClient
         };
       }
 
-      await prisma.about.update({
+      const updatedAbout = await prisma.about.update({
         where: {
           id: id,
         },
@@ -194,9 +210,13 @@ export const updateAbout = authActionClient
               }
             : undefined,
         },
+        include: {
+          image: true,
+        },
       });
 
       return {
+        state: updatedAbout,
         success: true,
         status: "success",
         message: `La bull a propos a été mis à jour avec succès ! 🚀`,
@@ -208,7 +228,7 @@ export const updateAbout = authActionClient
         message: "Erreur lors de la mise à jour de la bull a propos.",
       };
     }
-  }) as (formData: FormData) => Promise<Result>;
+  }) as (formData: FormData) => Promise<Result<FullAbout>>;
 
 export const deleteAbout = authActionClient
   .schema(deleteSchema)
@@ -229,6 +249,7 @@ export const deleteAbout = authActionClient
       });
 
       return {
+        state: deleteAbout,
         success: true,
         status: "success",
         message: `La bull a propos a été supprimée avec succès ! 🚀`,
@@ -240,4 +261,4 @@ export const deleteAbout = authActionClient
         message: "Erreur lors de la suppression de la bull a propos.",
       };
     }
-  }) as ({ id }: { id: string }) => Promise<Result>;
+  }) as ({ id }: { id: string }) => Promise<Result<FullAbout>>;

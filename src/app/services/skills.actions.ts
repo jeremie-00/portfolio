@@ -37,14 +37,18 @@ export const createSkill = authActionClient
           ? await imageUpload({ title, file: image, folder: "skills" })
           : null;
 
-      await prisma.skill.create({
+      const createdSkill = await prisma.skill.create({
         data: {
           title,
           image: url ? { create: { url, alt: `Logo de ${title}` } } : undefined,
         },
+        include: {
+          image: true,
+        },
       });
 
       return {
+        state: createdSkill,
         success: true,
         status: "success",
         message: `La compétence \"${title}\" a été créée avec succès ! 🚀`,
@@ -56,7 +60,7 @@ export const createSkill = authActionClient
         message: "Erreur lors de la création de la compétence.",
       };
     }
-  }) as (formData: FormData) => Promise<Result>;
+  }) as (formData: FormData) => Promise<Result<FullSkill>>;
 
 const skillSchemaUpdate = zfd.formData({
   id: z.string().nonempty({ message: "Vous devez fournir un identifiant" }),
@@ -87,7 +91,7 @@ export const updateSkill = authActionClient
       if (existingSkill?.image && url)
         await imageDelete({ image: existingSkill.image });
 
-      await prisma.skill.update({
+      const updatedSkill = await prisma.skill.update({
         where: { id },
         data: {
           title,
@@ -100,9 +104,13 @@ export const updateSkill = authActionClient
               }
             : undefined,
         },
+        include: {
+          image: true,
+        },
       });
 
       return {
+        state: updatedSkill,
         success: true,
         status: "success",
         message: `La compétence \"${title}\" a été mise à jour avec succès ! 🚀`,
@@ -114,7 +122,7 @@ export const updateSkill = authActionClient
         message: "Erreur lors de la mise à jour de la compétence.",
       };
     }
-  }) as (formData: FormData) => Promise<Result>;
+  }) as (formData: FormData) => Promise<Result<FullSkill>>;
 
 export const deleteSkill = authActionClient
   .schema(deleteSchema)
@@ -133,6 +141,7 @@ export const deleteSkill = authActionClient
       await prisma.skill.delete({ where: { id: id } });
 
       return {
+        state: skill,
         success: true,
         status: "success",
         message: `La compétence \"${skill.title}\" a été supprimée avec succès ! 🚀`,
@@ -144,4 +153,4 @@ export const deleteSkill = authActionClient
         message: "Erreur lors de la suppression de la compétence.",
       };
     }
-  }) as ({ id }: { id: string }) => Promise<Result>;
+  }) as ({ id }: { id: string }) => Promise<Result<FullSkill>>;

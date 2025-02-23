@@ -4,6 +4,7 @@ import { zfd } from "zod-form-data";
 import prisma from "../lib/prisma";
 import { authActionClient } from "../lib/safe-action";
 import { Result } from "../types/globalType";
+import { NotationType } from "../types/prismaType";
 import { deleteSchema } from "../types/zodType";
 
 export const getTextNotation = async () => {
@@ -60,7 +61,7 @@ export const createTextNotation = authActionClient
         };
       }
 
-      await prisma.textNotation.create({
+      const createdNotation = await prisma.textNotation.create({
         data: {
           page: page,
           order: Number(order),
@@ -71,6 +72,7 @@ export const createTextNotation = authActionClient
       });
 
       return {
+        state: createdNotation,
         success: true,
         status: "success",
         message: `Le texte a été mis à jour avec succès ! 🚀`,
@@ -82,7 +84,7 @@ export const createTextNotation = authActionClient
         message: "Erreur lors de la mise à jour du texte.",
       };
     }
-  }) as (formData: FormData) => Promise<Result>;
+  }) as (formData: FormData) => Promise<Result<NotationType>>;
 
 const notationSchemaUpdate = zfd.formData({
   id: z.string().nonempty({ message: "Vous devez fournir un identifiant" }),
@@ -116,7 +118,7 @@ export const updateTextNotation = authActionClient
         };
       }
 
-      await prisma.textNotation.update({
+      const updatedNotation = await prisma.textNotation.update({
         where: {
           id: id,
         },
@@ -130,6 +132,7 @@ export const updateTextNotation = authActionClient
       });
 
       return {
+        state: updatedNotation,
         success: true,
         status: "success",
         message: `Le texte a été mis à jour avec succès ! 🚀`,
@@ -141,7 +144,7 @@ export const updateTextNotation = authActionClient
         message: "Erreur lors de la mise à jour du texte.",
       };
     }
-  }) as (formData: FormData) => Promise<Result>;
+  }) as (formData: FormData) => Promise<Result<NotationType>>;
 
 export const deleteTextNotation = authActionClient
   .schema(deleteSchema)
@@ -162,6 +165,7 @@ export const deleteTextNotation = authActionClient
       });
 
       return {
+        state: deleteText,
         success: true,
         status: "success",
         message: `Le texte a été supprimée avec succès ! 🚀`,
@@ -173,4 +177,4 @@ export const deleteTextNotation = authActionClient
         message: "Erreur lors de la suppression du texte.",
       };
     }
-  }) as ({ id }: { id: string }) => Promise<Result>;
+  }) as ({ id }: { id: string }) => Promise<Result<NotationType>>;

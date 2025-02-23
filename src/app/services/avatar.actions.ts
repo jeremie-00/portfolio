@@ -54,7 +54,7 @@ enum ArrowBullPosition {
 }
 
 const avatarSchemaCreate = zfd.formData({
-  page: z.string().nonempty({ message: "Vous devez fournir un ordre" }),
+  page: z.string().nonempty({ message: "Vous devez fournir une page" }),
   text: z.string().nonempty({ message: "Vous devez fournir un texte" }),
   recto: z.instanceof(File).optional(),
   verso: z.instanceof(File).optional(),
@@ -94,7 +94,7 @@ export const createAvatar = authActionClient
         verso?.size > 0 &&
         (await uploadImage(`avatar-verso ${page}`, verso, "avatar"));
 
-      await prisma.avatar.create({
+      const createdAvatar = await prisma.avatar.create({
         data: {
           page: page,
           text: text,
@@ -116,9 +116,14 @@ export const createAvatar = authActionClient
             : undefined,
           arrowBullPosition: arrowBullPosition,
         },
+        include: {
+          recto: true,
+          verso: true,
+        },
       });
 
       return {
+        state: createdAvatar,
         success: true,
         status: "success",
         message: `L'avatar page ${page} a été créée avec succès ! 🚀`,
@@ -130,7 +135,7 @@ export const createAvatar = authActionClient
         message: `Erreur lors de la création de l'avatar.`,
       };
     }
-  }) as (formData: FormData) => Promise<Result>;
+  }) as (formData: FormData) => Promise<Result<FullAvatar>>;
 
 const AvatarSchemaUpdate = zfd.formData({
   id: z.string().nonempty({ message: "Vous devez fournir un identifiant" }),
@@ -181,7 +186,7 @@ export const updateAvatar = authActionClient
         };
       }
 
-      await prisma.avatar.update({
+      const updatedAvatar = await prisma.avatar.update({
         where: {
           id: id,
         },
@@ -218,9 +223,14 @@ export const updateAvatar = authActionClient
               }
             : undefined,
         },
+        include: {
+          recto: true,
+          verso: true,
+        },
       });
 
       return {
+        state: updatedAvatar,
         success: true,
         status: "success",
         message: `L"avatar page ${page} a été mis à jour avec succès ! 🚀`,
@@ -232,7 +242,7 @@ export const updateAvatar = authActionClient
         message: "Erreur lors de la mise à jour de l'avatar.",
       };
     }
-  }) as (formData: FormData) => Promise<Result>;
+  }) as (formData: FormData) => Promise<Result<FullAvatar>>;
 
 export const deleteAvatar = authActionClient
   .schema(deleteSchema)
@@ -253,6 +263,7 @@ export const deleteAvatar = authActionClient
       });
 
       return {
+        state: deleteAvatar,
         success: true,
         status: "success",
         message: `L'avatar a été supprimée avec succès ! 🚀`,
@@ -264,4 +275,4 @@ export const deleteAvatar = authActionClient
         message: "Erreur lors de la suppression de l'avatar.",
       };
     }
-  }) as ({ id }: { id: string }) => Promise<Result>;
+  }) as ({ id }: { id: string }) => Promise<Result<FullAvatar>>;

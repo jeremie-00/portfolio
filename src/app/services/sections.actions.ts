@@ -5,6 +5,7 @@ import { zfd } from "zod-form-data";
 import prisma from "../lib/prisma";
 import { authActionClient } from "../lib/safe-action";
 import { Result } from "../types/globalType";
+import { SectionType } from "../types/prismaType";
 import { deleteSchema } from "../types/zodType";
 
 export const getSection = async () => {
@@ -38,7 +39,7 @@ export const createSection = authActionClient
   .action(async ({ parsedInput: { ...formData } }) => {
     try {
       const { section, title, text } = formData;
-      await prisma.section.create({
+      const createSection = await prisma.section.create({
         data: {
           section: section,
           title: title,
@@ -46,6 +47,7 @@ export const createSection = authActionClient
         },
       });
       return {
+        state: createSection,
         success: true,
         status: "success",
         message: `La section a été créée avec succès ! 🚀`,
@@ -57,7 +59,7 @@ export const createSection = authActionClient
         message: "Erreur lors de la création de la section.",
       };
     }
-  }) as (formData: FormData) => Promise<Result>;
+  }) as (formData: FormData) => Promise<Result<SectionType>>;
 
 const sectionSchemaUpdate = zfd.formData({
   id: z.string().nonempty({ message: "Vous devez fournir un identifiant" }),
@@ -66,12 +68,12 @@ const sectionSchemaUpdate = zfd.formData({
   text: z.string().optional(),
 });
 
-export const UpdateSection = authActionClient
+export const updateSection = authActionClient
   .schema(sectionSchemaUpdate)
   .action(async ({ parsedInput: { ...formData } }) => {
     try {
       const { id, section, title, text } = formData;
-      await prisma.section.update({
+      const updateSection = await prisma.section.update({
         where: {
           id: id,
         },
@@ -82,6 +84,7 @@ export const UpdateSection = authActionClient
         },
       });
       return {
+        state: updateSection,
         success: true,
         status: "success",
         message: `La section a été mis à jour avec succès ! 🚀`,
@@ -93,12 +96,11 @@ export const UpdateSection = authActionClient
         message: "Erreur lors de la mise à jour de la section.",
       };
     }
-  }) as (formData: FormData) => Promise<Result>;
+  }) as (formData: FormData) => Promise<Result<SectionType>>;
 
 export const deleteSection = authActionClient
   .schema(deleteSchema)
   .action(async ({ parsedInput: { id } }) => {
-    console.log(id);
     try {
       const deleteSection = await getSectionById(id);
       if (!deleteSection) {
@@ -115,6 +117,7 @@ export const deleteSection = authActionClient
       });
 
       return {
+        state: deleteSection,
         success: true,
         status: "success",
         message: `La section a été supprimée avec succès ! 🚀`,
@@ -126,4 +129,4 @@ export const deleteSection = authActionClient
         message: "Erreur lors de la suppression de la section.",
       };
     }
-  }) as ({ id }: { id: string }) => Promise<Result>;
+  }) as ({ id }: { id: string }) => Promise<Result<SectionType>>;
