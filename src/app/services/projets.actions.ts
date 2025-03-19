@@ -55,24 +55,24 @@ const projets: ProjetProps[] = [
     ],
     image: {
       cover: {
-        url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/cover/1734620324339-3288-Bmotfp5waOrVlFpdQc1lP7UwaScPhq.png",
+        url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/Portfolio-jh-tech/projet-Kasa/Cover-Kasa-15-02-2025-1739605766362-8513-zP4qUDZ0WrvgM02DwKb2TvOIwAng5B.png",
         alt: "Image de couverture du projet",
       },
       medias: [
         {
-          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1735206634822-7535-9CwYygreflYxygCsBRARwQPay2uN8q.webp",
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/Portfolio-jh-tech/projet-Kasa/Medias-Kasa-15-02-2025-1739605766849-2463-bh2nk49GSQaCH8pCnKVLnofGd0EtYW.webp",
           alt: "Image du projet",
         },
         {
-          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1735206634822-5005-IoLOkUwncCbbLA1HaXuDnDfeyS4jzM.webp",
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/Portfolio-jh-tech/projet-Kasa/Medias-Kasa-15-02-2025-1739605766849-2606-UdsAEwlyuvalNeig1LONJ1fhLt7qJp.webp",
           alt: "Image du projet",
         },
         {
-          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1735206634822-1491-vPNZRujbYCgiMwPKdYAle6h0oeVKdK.webp",
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/Portfolio-jh-tech/projet-Kasa/Medias-Kasa-15-02-2025-1739605766849-2652-RZ81wa1TUCyIhhQuCuhZykCL6wUwr4.webp",
           alt: "Image du projet",
         },
         {
-          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1735206634822-3235-Kvsa09BmUATHGQFjmUh6n5YlDNLnD1.webp",
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/Portfolio-jh-tech/projet-Kasa/Medias-Kasa-15-02-2025-1739605766849-5474-1ldl77pxHf6kU49clFmHZqMA1F4k8S.webp",
           alt: "Image du projet",
         },
       ],
@@ -102,24 +102,20 @@ const projets: ProjetProps[] = [
     ],
     image: {
       cover: {
-        url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/cover/1734695299358-9490-c2wumS5aWBTPAkYm7ZtYvxj0PFpTjP.svg",
+        url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/Portfolio-jh-tech/projet-OhMyFood/Medias-OhMyFood-15-02-2025-1739602033820-70-eMcWOvSwIarXpLQWHZJbufFiU5qeA8.png",
         alt: "Image de couverture du projet",
       },
       medias: [
         {
-          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1735206923267-6081-ZBiEoluFNuzOzCAMOjOoBAFoxLSeto.webp",
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/Portfolio-jh-tech/projet-OhMyFood/Medias-OhMyFood-15-02-2025-1739601867877-2731-zOLX3vRqlnLjyeqGTisWSUDl3wBA7J.webp",
           alt: "Image du projet",
         },
         {
-          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1735206923268-142-NEH4rrVqxPlBSFj311nxTsuhilq4OK.webp",
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/Portfolio-jh-tech/projet-OhMyFood/Medias-OhMyFood-15-02-2025-1739602033820-1551-f2lhNbwESdUFibhQOtglkvq78kGArE.webp",
           alt: "Image du projet",
         },
         {
-          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1735206923268-1744-4xWLLKnNdMf64teopeu2uW0BLh0R4p.webp",
-          alt: "Image du projet",
-        },
-        {
-          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/medias/1735206923268-3921-puBK9NG9jiTHCSzUTNeD1emktrPDdq.webp",
+          url: "https://tx41fcbjdi0olrou.public.blob.vercel-storage.com/Portfolio-jh-tech/projet-OhMyFood/Medias-OhMyFood-15-02-2025-1739602033820-3883-qrdoL2lVDqBGAZxv3Z2q9tuUtYw90S.png",
           alt: "Image du projet",
         },
       ],
